@@ -125,17 +125,17 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "04",
-    slug: "xyz-motion-lab",
-    title: "XYZ MOTION LAB",
+    slug: "tekzo-motion-lab",
+    title: "TEKZO MOTION LAB",
     category: "3D R&D & Generative WebGL",
-    client: "XYZ Internal Research & Development",
+    client: "Tekzo Internal Research & Development",
     year: "2025",
     badge: "Concept Project 04",
     tagline: "Exploration in physics-driven shaders, interactive typography, and spatial web graphics.",
     description:
       "An experimental R&D playground celebrating abstract 3D animation, GPU-accelerated motion graphics, and interactive scroll mechanics pushed to the bleeding edge.",
     fullOverview:
-      "XYZ Motion Lab is our creative engineering sandbox where design rules are tested and broken. We build real-time GLSL fragment shaders, spring-physics typography, and volumetric particle fields that translate user input into tactile digital art.",
+      "Tekzo Motion Lab is our creative engineering sandbox where design rules are tested and broken. We build real-time GLSL fragment shaders, spring-physics typography, and volumetric particle fields that translate user input into tactile digital art.",
     challenge:
       "Achieving fluid 60-120fps complex physics and particle animations in standard web browsers across mobile and desktop without heating up devices.",
     solution:

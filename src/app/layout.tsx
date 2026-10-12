@@ -24,15 +24,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://xyz-agency.digital"),
+  metadataBase: new URL("https://tekzo.digital"),
   title: {
-    default: "XYZ — Premium Animated Digital Agency | We Make Digital Feel Alive",
-    template: "%s | XYZ Digital Agency",
+    default: "TEKZO — Premium Animated Digital Agency | We Make Digital Feel Alive",
+    template: "%s | Tekzo Digital Agency",
   },
   description:
-    "XYZ is a premium digital agency delivering cinematic AI visual creatives, dynamic web applications, mobile platforms, and transformative business automations.",
+    "Tekzo is a premium digital agency delivering cinematic AI visual creatives, dynamic web applications, mobile platforms, and transformative business automations.",
   keywords: [
-    "XYZ Agency",
+    "Tekzo Agency",
     "Digital Agency",
     "AI Poster Design",
     "AI Animation Videos",
@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     "Digital Business Solutions",
     "Interactive 3D Web",
   ],
-  authors: [{ name: "XYZ Creative Studio" }],
-  creator: "XYZ",
-  publisher: "XYZ",
+  authors: [{ name: "Tekzo Creative Studio" }],
+  creator: "Tekzo",
+  publisher: "Tekzo",
   robots: {
     index: true,
     follow: true,
@@ -52,29 +52,30 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://xyz-agency.digital",
-    siteName: "XYZ Digital Agency",
-    title: "XYZ — Premium Animated Digital Agency | We Make Digital Feel Alive",
+    url: "https://tekzo.digital",
+    siteName: "Tekzo Digital Agency",
+    title: "TEKZO — Premium Animated Digital Agency | We Make Digital Feel Alive",
     description:
       "We create powerful digital experiences through AI creativity, modern websites, mobile apps, and innovative business solutions.",
     images: [
       {
-        url: "/images/og-preview.jpg",
+        url: "/logo/company_logo.jpeg",
         width: 1200,
         height: 630,
-        alt: "XYZ Digital Agency",
+        alt: "Tekzo Digital Agency",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "XYZ — Premium Animated Digital Agency",
+    title: "TEKZO — Premium Animated Digital Agency",
     description:
       "We create powerful digital experiences through AI creativity, modern websites, mobile apps, and innovative business solutions.",
-    images: ["/images/og-preview.jpg"],
+    images: ["/logo/company_logo.jpeg"],
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/logo/company_logo.jpeg",
+    apple: "/logo/company_logo.jpeg",
   },
 };
 

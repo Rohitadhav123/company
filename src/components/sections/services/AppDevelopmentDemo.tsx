@@ -185,7 +185,7 @@ export default function AppDevelopmentDemo() {
                     KINETIC NOISE 04
                   </span>
                   <span className="text-[7px] font-mono text-purple-300">
-                    XYZ Audio Lab • 320kbps
+                    Tekzo Audio Lab • 320kbps
                   </span>
                 </div>
 

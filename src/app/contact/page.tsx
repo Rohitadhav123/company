@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Start a Project | Contact XYZ Digital Agency",
+  title: "Start a Project | Contact Tekzo Digital Agency",
   description:
     "Commission custom AI creative visuals, website development, mobile apps, or business automation workflows.",
 };

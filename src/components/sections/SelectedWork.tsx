@@ -127,7 +127,7 @@ export default function SelectedWork({ onSelectProjectForEnquiry }: SelectedWork
             href="#contact"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FF5A1F] text-black font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-colors shrink-0"
           >
-            <span>COMMISSION XYZ</span>
+            <span>COMMISSION TEKZO</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

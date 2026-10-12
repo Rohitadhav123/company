@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Menu, X, Sparkles } from "lucide-react";
 
 export default function Navbar() {
@@ -70,17 +71,27 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 xs:px-6 sm:px-8 flex items-center justify-between">
-          {/* Logo — Futuristic Text-Based XYZ Logo */}
+          {/* Logo — Tekzo Official Brand Logo */}
           <Link
             href="/"
-            className="group flex items-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F] rounded-lg py-1"
-            aria-label="XYZ Digital Agency Home"
+            className="group flex items-center gap-3 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F] rounded-lg py-1"
+            aria-label="Tekzo Digital Agency Home"
           >
+            <div className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden border border-white/10 group-hover:border-[#00F0FF]/60 transition-all shadow-[0_0_15px_rgba(0,240,255,0.2)] bg-black shrink-0">
+              <Image
+                src="/logo/company_logo.jpeg"
+                alt="Tekzo Logo"
+                fill
+                sizes="36px"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
+                priority
+              />
+            </div>
             <div className="flex items-center tracking-tighter">
-              <span className="text-2xl font-black font-mono tracking-widest text-white group-hover:text-[#FF5A1F] transition-colors">
-                XYZ
+              <span className="text-xl sm:text-2xl font-black font-mono tracking-widest text-white group-hover:text-[#00F0FF] transition-colors">
+                TEKZO
               </span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] ml-1.5 animate-pulse inline-block shadow-[0_0_8px_#FF5A1F]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] ml-1.5 animate-pulse inline-block shadow-[0_0_8px_#00F0FF]" />
             </div>
             <span className="hidden sm:inline-block text-[10px] font-mono tracking-widest uppercase text-[#A3A3A3] pl-2 border-l border-white/10">
               STUDIO
@@ -138,9 +149,18 @@ export default function Navbar() {
         }`}
       >
         <div className="flex items-center justify-between border-b border-white/10 pb-5">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-black font-mono tracking-widest text-white">XYZ</span>
-            <span className="w-2 h-2 rounded-full bg-[#FF5A1F] animate-pulse" />
+          <div className="flex items-center gap-2.5">
+            <div className="relative w-8 h-8 rounded-xl overflow-hidden border border-white/15 bg-black shrink-0">
+              <Image
+                src="/logo/company_logo.jpeg"
+                alt="Tekzo Logo"
+                fill
+                sizes="32px"
+                className="object-cover"
+              />
+            </div>
+            <span className="text-xl font-black font-mono tracking-widest text-white">TEKZO</span>
+            <span className="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse" />
           </div>
           <button
             type="button"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { Sparkles, ArrowUpRight, ShieldCheck, Filter } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -147,10 +148,18 @@ export default function ServicesSection({
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-8">
           <div>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_8px_#FF5A1F] animate-pulse" />
+            <div className="flex items-center gap-2.5 mb-3">
+              <div className="relative w-4 h-4 rounded overflow-hidden bg-black shrink-0 border border-white/10">
+                <Image
+                  src="/logo/company_logo.jpeg"
+                  alt="Tekzo Logo"
+                  fill
+                  sizes="16px"
+                  className="object-cover"
+                />
+              </div>
               <span className="text-xs font-mono uppercase tracking-widest text-[#FF5A1F] font-semibold">
-                CAPABILITIES & STUDIO PRACTICES
+                TEKZO CAPABILITIES & PRACTICES
               </span>
             </div>
 

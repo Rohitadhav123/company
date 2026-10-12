@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Monitor, Smartphone, Layers, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 
 export default function WebDevelopmentDemo() {
@@ -20,7 +21,7 @@ export default function WebDevelopmentDemo() {
           <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80 shrink-0" />
           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 shrink-0" />
           <span className="ml-1.5 text-[9px] sm:text-[10px] font-mono text-[#A3A3A3] truncate max-w-[90px] xs:max-w-[130px] sm:max-w-none">
-            xyz-agency.digital/live-preview
+            tekzo.digital/live-preview
           </span>
         </div>
 
@@ -80,8 +81,17 @@ export default function WebDevelopmentDemo() {
         >
           {/* Top Simulated Web Nav */}
           <div className="flex items-center justify-between border-b border-white/10 pb-2">
-            <div className="flex items-center gap-2">
-              <span className="font-mono font-black text-xs text-white">XYZ</span>
+            <div className="flex items-center gap-1.5">
+              <div className="relative w-3.5 h-3.5 rounded overflow-hidden bg-black shrink-0 border border-white/10">
+                <Image
+                  src="/logo/company_logo.jpeg"
+                  alt="Tekzo"
+                  fill
+                  sizes="14px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="font-mono font-black text-xs text-white">TEKZO</span>
               {!isMobileView && (
                 <div className="hidden sm:flex items-center gap-2 text-[9px] font-mono text-[#737373]">
                   <span>/WORK</span>

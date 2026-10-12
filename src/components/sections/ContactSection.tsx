@@ -8,11 +8,12 @@ import {
   CheckCircle2,
   AlertCircle,
   Sparkles,
-  ArrowUpRight,
-  Clock,
-  ShieldAlert,
+  Database,
+  Check,
+  Loader2,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import Toast, { ToastMessage } from "@/components/ui/Toast";
 
 interface ContactSectionProps {
   initialService?: string;
@@ -28,15 +29,17 @@ export default function ContactSection({
     email: "",
     company: "",
     service: initialService,
-    budget: "$15,000 – $35,000",
     description: initialProject
-      ? `Hi XYZ team, I was reviewing your concept project "${initialProject}" and would love to discuss something similar for our brand.`
+      ? `Hi Tekzo team, I was reviewing your concept project "${initialProject}" and would love to discuss something similar for our brand.`
       : "",
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submissionId, setSubmissionId] = useState<number | null>(null);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [toast, setToast] = useState<ToastMessage | null>(null);
 
   const serviceOptions = [
     "AI Poster Design",
@@ -45,13 +48,6 @@ export default function ContactSection({
     "Mobile App Development",
     "Business Development Planning",
     "Digital Business Solutions",
-  ];
-
-  const budgetOptions = [
-    "< $5,000",
-    "$5,000 – $15,000",
-    "$15,000 – $35,000",
-    "$35,000+",
   ];
 
   const validate = () => {
@@ -69,45 +65,84 @@ export default function ContactSection({
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
+    setServerError(null);
 
-    // Simulate submission flow
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit enquiry. Please try again.");
+      }
+
+      const newId = data.data?.id;
+      setSubmissionId(newId || null);
       setIsSuccess(true);
+
+      // Trigger modern toast notification
+      setToast({
+        id: Date.now().toString(),
+        type: "success",
+        title: "Enquiry Submitted Successfully!",
+        description: `Your brief is securely recorded in PostgreSQL${newId ? ` (Record #${newId})` : ""}. We will respond within 24 hours.`,
+        dbSaved: true,
+      });
 
       // Trigger celebratory confetti
       try {
         confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 85,
+          spread: 75,
           origin: { y: 0.6 },
-          colors: ["#FF5A1F", "#FFFFFF", "#00F0FF"],
+          colors: ["#FF5A1F", "#FFFFFF", "#10B981"],
         });
       } catch {
         // Fallback silently if canvas-confetti is unavailable
       }
-    }, 700);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Something went wrong while submitting.";
+      setServerError(message);
+      setToast({
+        id: Date.now().toString(),
+        type: "error",
+        title: "Submission Failed",
+        description: message,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Generate mailto link
-  const mailtoUrl = `mailto:hello@xyz-agency.digital?subject=${encodeURIComponent(
+  const mailtoUrl = `mailto:tekzobuisness@gmail.com?subject=${encodeURIComponent(
     `Project Commission: ${formData.service || "New Project"} - ${formData.company || formData.name}`
   )}&body=${encodeURIComponent(
-    `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nService: ${formData.service}\nBudget Bracket: ${formData.budget}\n\nProject Overview:\n${formData.description}`
+    `Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\nService: ${formData.service}\n\nProject Overview:\n${formData.description}`
   )}`;
 
   // Generate WhatsApp chat link
   const whatsappUrl = `https://wa.me/15551234567?text=${encodeURIComponent(
-    `Hi XYZ Studio! My name is ${formData.name || "Client"} (${formData.company || "Brand"}). I am interested in ${formData.service}. Message: ${formData.description || "Looking forward to speaking."}`
+    `Hi Tekzo Studio! My name is ${formData.name || "Client"} (${formData.company || "Brand"}). I am interested in ${formData.service}. Message: ${formData.description || "Looking forward to speaking."}`
   )}`;
 
   return (
     <section id="contact" className="relative py-16 sm:py-24 lg:py-28 bg-transparent overflow-hidden">
+      {/* Toast Notification Container */}
+      <Toast toast={toast} onClose={() => setToast(null)} />
+
       {/* Seamless Section Top Gradient Divider */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/12 to-transparent pointer-events-none" />
 
@@ -133,90 +168,31 @@ export default function ContactSection({
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Direct Contact & Channel Info */}
-          <div className="lg:col-span-5 space-y-6 sm:space-y-8">
-            <div className="p-5 xs:p-6 sm:p-8 rounded-3xl bg-[#111111] border border-white/10 space-y-6">
-              <h3 className="text-xl font-bold uppercase text-white tracking-tight">
-                DIRECT STUDIO CHANNELS
-              </h3>
-
-              {/* Email Direct */}
-              <a
-                href="mailto:hello@xyz-agency.digital"
-                className="flex items-start gap-4 p-4 rounded-2xl bg-[#181818] border border-white/5 hover:border-[#FF5A1F]/40 transition-all group"
-              >
-                <div className="p-3 rounded-xl bg-black/60 border border-white/10 text-[#FF5A1F] group-hover:scale-110 transition-transform shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="min-w-0">
-                  <span className="text-xs font-mono uppercase text-[#A3A3A3] block mb-0.5">
-                    Email Enquiries
-                  </span>
-                  <span className="text-sm font-bold text-white group-hover:text-[#FF5A1F] transition-colors break-all sm:break-normal">
-                    hello@xyz-agency.digital
-                  </span>
-                </div>
-              </a>
-
-              {/* WhatsApp Direct */}
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-start gap-4 p-4 rounded-2xl bg-[#181818] border border-white/5 hover:border-emerald-500/40 transition-all group"
-              >
-                <div className="p-3 rounded-xl bg-black/60 border border-white/10 text-emerald-400 group-hover:scale-110 transition-transform">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="text-xs font-mono uppercase text-[#A3A3A3] block mb-0.5">
-                    WhatsApp Business (Instant)
-                  </span>
-                  <span className="text-sm font-bold text-white group-hover:text-emerald-400 transition-colors">
-                    +1 (555) 123-4567
-                  </span>
-                </div>
-              </a>
-
-              {/* Response SLA */}
-              <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#0d0d0d] border border-white/5 text-xs text-[#A3A3A3] font-mono">
-                <Clock className="w-4 h-4 text-[#FF5A1F]" />
-                <span>Typical Initial Response: Within 12-24 Hours</span>
-              </div>
-            </div>
-
-            {/* Backend Configuration Notice */}
-            <div className="p-6 rounded-2xl bg-[#101010] border border-white/10 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-mono text-white font-bold">
-                <ShieldAlert className="w-4 h-4 text-[#FF5A1F]" />
-                <span>INTEGRATION TRANSPARENCY</span>
-              </div>
-              <p className="text-[11px] text-[#A3A3A3] leading-relaxed">
-                When you submit, your data is validated client-side and triggers a ready-to-send email
-                or WhatsApp draft. To connect automated backend delivery (Resend, SendGrid, or Slack webhook),
-                add your secret credentials in an environment variable (`.env.local`). No secret keys are exposed client-side.
-              </p>
-            </div>
-          </div>
-
-          {/* Right Column: Project Enquiry Form */}
-          <div className="lg:col-span-7 bg-[#111111] border border-white/10 rounded-3xl p-5 xs:p-7 sm:p-10 shadow-2xl relative">
+        <div className="max-w-3xl mx-auto">
+          {/* Project Enquiry Form */}
+          <div className="bg-[#111111] border border-white/10 rounded-3xl p-6 xs:p-8 sm:p-12 shadow-2xl relative">
             {isSuccess ? (
               <div className="text-center py-12 space-y-6">
-                <div className="w-20 h-20 mx-auto rounded-full bg-[#FF5A1F]/20 border border-[#FF5A1F] flex items-center justify-center text-[#FF5A1F] shadow-[0_0_30px_rgba(255,90,31,0.4)]">
+                <div className="w-20 h-20 mx-auto rounded-full bg-emerald-500/20 border border-emerald-500 flex items-center justify-center text-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.35)]">
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
 
-                <h3 className="text-3xl font-black uppercase text-white tracking-tight">
-                  ENQUIRY GENERATED!
-                </h3>
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400">
+                    <Check className="w-3.5 h-3.5" />
+                    <span>STORED IN POSTGRESQL {submissionId ? `• RECORD #${submissionId}` : ""}</span>
+                  </div>
+
+                  <h3 className="text-3xl font-black uppercase text-white tracking-tight">
+                    ENQUIRY RECEIVED!
+                  </h3>
+                </div>
 
                 <p className="text-sm text-[#A3A3A3] max-w-md mx-auto leading-relaxed">
                   Thank you, <span className="text-white font-bold">{formData.name}</span>!
                   Your project specifications for{" "}
                   <span className="text-[#FF5A1F] font-bold">{formData.service}</span> have been
-                  compiled.
+                  successfully recorded into our PostgreSQL database.
                 </p>
 
                 {/* Direct Action Buttons for Immediate Delivery */}
@@ -244,22 +220,34 @@ export default function ContactSection({
                   type="button"
                   onClick={() => {
                     setIsSuccess(false);
+                    setSubmissionId(null);
+                    setServerError(null);
                     setFormData({
                       name: "",
                       email: "",
                       company: "",
-                      service: "Web Design & Development",
-                      budget: "$15,000 – $35,000",
+                      service: "Website Development",
                       description: "",
                     });
                   }}
-                  className="text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors underline pt-4 block mx-auto"
+                  className="text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors underline pt-4 block mx-auto cursor-pointer"
                 >
                   Submit Another Enquiry
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Server Error Alert Banner */}
+                {serverError && (
+                  <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-400 flex items-start gap-2.5 animate-in fade-in">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
+                    <div className="flex-1">
+                      <p className="font-bold mb-0.5">Submission Error</p>
+                      <p>{serverError}</p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Name & Email Row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
@@ -330,7 +318,7 @@ export default function ContactSection({
                         type="button"
                         key={serv}
                         onClick={() => setFormData({ ...formData, service: serv })}
-                        className={`px-3 xs:px-3.5 py-1.5 xs:py-2 rounded-xl text-[11px] xs:text-xs font-mono uppercase tracking-wider transition-all ${
+                        className={`px-3 xs:px-3.5 py-1.5 xs:py-2 rounded-xl text-[11px] xs:text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${
                           formData.service === serv
                             ? "bg-[#FF5A1F] text-black font-bold shadow-md"
                             : "bg-[#181818] text-[#A3A3A3] hover:text-white border border-white/5"
@@ -342,28 +330,6 @@ export default function ContactSection({
                   </div>
                 </div>
 
-                {/* Optional Budget Brackets */}
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-white mb-2">
-                    Target Budget (USD)
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 xs:gap-2">
-                    {budgetOptions.map((b) => (
-                      <button
-                        type="button"
-                        key={b}
-                        onClick={() => setFormData({ ...formData, budget: b })}
-                        className={`py-2 px-2 xs:px-3 rounded-xl text-[11px] xs:text-xs font-mono text-center transition-all ${
-                          formData.budget === b
-                            ? "bg-white text-black font-bold"
-                            : "bg-[#181818] text-[#A3A3A3] hover:text-white border border-white/5"
-                        }`}
-                      >
-                        {b}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Project Description */}
                 <div>
@@ -391,11 +357,14 @@ export default function ContactSection({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 rounded-xl bg-[#FF5A1F] text-black font-black uppercase tracking-wider text-sm hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(255,90,31,0.5)] flex items-center justify-center gap-2 group disabled:opacity-50"
+                  className="w-full py-4 rounded-xl bg-[#FF5A1F] text-black font-black uppercase tracking-wider text-sm hover:bg-white transition-all duration-300 shadow-[0_0_25px_rgba(255,90,31,0.5)] flex items-center justify-center gap-2 group disabled:opacity-50 cursor-pointer"
                   data-cursor="hover"
                 >
                   {isSubmitting ? (
-                    <span>PROCESSING ENQUIRY...</span>
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>SAVING TO POSTGRESQL...</span>
+                    </>
                   ) : (
                     <>
                       <span>SUBMIT PROJECT BRIEF</span>

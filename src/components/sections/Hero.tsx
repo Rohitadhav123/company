@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowDown, ArrowUpRight, Play, Info, CheckCircle2, Film } from "lucide-react";
 import gsap from "gsap";
 import ThreeBackground from "@/components/ui/ThreeBackground";
@@ -85,7 +86,7 @@ export default function Hero() {
       className="relative min-h-screen w-full flex flex-col justify-between pt-32 pb-12 overflow-hidden bg-transparent"
       id="hero"
     >
-      {/* BACKGROUND LAYER 1: VIDEO (Exact user video path: /videos/xyz-hero.mp4) */}
+      {/* BACKGROUND LAYER 1: VIDEO (Custom user video path: /videos/tekzo-hero.mp4) */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <video
           ref={videoRef}
@@ -100,7 +101,7 @@ export default function Hero() {
             videoLoaded ? "opacity-75 scale-100" : "opacity-0 scale-105"
           }`}
         >
-          <source src="/videos/xyz-hero.mp4" type="video/mp4" />
+          <source src="/videos/tekzo-hero.mp4" type="video/mp4" />
         </video>
 
         {/* BACKGROUND LAYER 2: Graceful Cinematic Fallback when video is awaiting placement */}
@@ -127,11 +128,21 @@ export default function Hero() {
       {/* FOREGROUND: Hero Headline & Messaging */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 xs:px-6 sm:px-8 w-full my-auto py-12 flex flex-col justify-center">
         {/* Category Pill / Identity Sub-badge */}
+        {/* Studio Badge with Official Logo */}
         <div className="flex items-center gap-3 mb-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#151515]/90 border border-white/10 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#FF5A1F] shadow-[0_0_8px_#FF5A1F] animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#151515]/90 border border-white/10 backdrop-blur-md">
+            <div className="relative w-5 h-5 rounded-md overflow-hidden bg-black shrink-0 border border-white/10">
+              <Image
+                src="/logo/company_logo.jpeg"
+                alt="Tekzo Logo"
+                fill
+                sizes="20px"
+                className="object-cover"
+              />
+            </div>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF] animate-pulse" />
             <span className="text-[11px] font-mono tracking-widest uppercase text-white/90">
-              NEXT-GEN DIGITAL AGENCY
+              TEKZO DIGITAL STUDIO
             </span>
           </div>
           <span className="hidden sm:inline-block text-xs font-mono text-[#A3A3A3]">
@@ -198,8 +209,8 @@ export default function Hero() {
           {videoLoaded ? (
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-[10px] sm:text-[11px] font-mono text-emerald-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span className="hidden sm:inline">CUSTOM CANVA HERO VIDEO ACTIVE (/videos/xyz-hero.mp4)</span>
-              <span className="sm:hidden">CANVA HERO VIDEO ACTIVE</span>
+              <span className="hidden sm:inline">CUSTOM HERO VIDEO ACTIVE (/videos/tekzo-hero.mp4)</span>
+              <span className="sm:hidden">HERO VIDEO ACTIVE</span>
             </div>
           ) : (
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#151515] border border-[#FF5A1F]/30 text-[10px] sm:text-[11px] font-mono text-[#A3A3A3]">
@@ -254,16 +265,16 @@ export default function Hero() {
                 The website is configured to automatically play your Canva cinematic video from:
               </p>
               <div className="p-3 bg-[#080808] border border-white/10 rounded-lg font-mono text-[11px] text-white select-all break-all">
-                c:\company\public\videos\xyz-hero.mp4
+                c:\company\public\videos\tekzo-hero.mp4
               </div>
               <p>
                 <strong className="text-white">Public URL:</strong>{" "}
-                <code className="text-[#FF5A1F]">/videos/xyz-hero.mp4</code>
+                <code className="text-[#FF5A1F]">/videos/tekzo-hero.mp4</code>
               </p>
               <p>
                 Currently, the graceful visual fallback (interactive 3D particle constellation &
                 ambient glow) is playing smoothly. Once you drop your exported{" "}
-                <code className="text-white">xyz-hero.mp4</code> file into that folder, it will
+                <code className="text-white">tekzo-hero.mp4</code> file into that folder, it will
                 instantly stream right here!
               </p>
             </div>

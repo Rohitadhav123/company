@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { ArrowUp, ArrowUpRight, Mail, MessageCircle, Globe } from "lucide-react";
 
 export default function Footer() {
@@ -40,11 +41,20 @@ export default function Footer() {
         {/* Massive Typographic Branding Row */}
         <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-white/10 pb-10 sm:pb-16 gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-4xl sm:text-6xl font-black font-mono tracking-widest text-white">
-                XYZ
+            <div className="flex items-center gap-3.5 mb-4">
+              <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_20px_rgba(0,240,255,0.25)] bg-black shrink-0">
+                <Image
+                  src="/logo/company_logo.jpeg"
+                  alt="Tekzo Logo"
+                  fill
+                  sizes="52px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="text-3xl sm:text-5xl font-black font-mono tracking-widest text-white">
+                TEKZO
               </span>
-              <span className="w-3 h-3 rounded-full bg-[#FF5A1F] shadow-[0_0_12px_#FF5A1F]" />
+              <span className="w-3 h-3 rounded-full bg-[#00F0FF] shadow-[0_0_12px_#00F0FF]" />
             </div>
             <p className="text-[#A3A3A3] text-sm sm:text-base max-w-md leading-relaxed">
               We make digital feel alive through synthetic AI art direction,
@@ -129,16 +139,16 @@ export default function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href="mailto:hello@xyz-agency.digital"
+                  href="mailto:tekzobuisness@gmail.com"
                   className="inline-flex items-center gap-2 text-white hover:text-[#FF5A1F] transition-colors"
                 >
                   <Mail className="w-4 h-4 text-[#FF5A1F] shrink-0" />
-                  <span className="break-all sm:break-normal">hello@xyz-agency.digital</span>
+                  <span className="break-all sm:break-normal">tekzobuisness@gmail.com</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="https://wa.me/15551234567?text=Hi%20XYZ%20Studio,%20I'd%20like%20to%20discuss%20a%20new%20project."
+                  href="https://wa.me/15551234567?text=Hi%20Tekzo%20Studio,%20I'd%20like%20to%20discuss%20a%20new%20project."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-white hover:text-emerald-400 transition-colors"
@@ -171,7 +181,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/tekzosolutions?xtok=YnNvNTBrY2t4ZzQ1"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-white hover:text-[#FF5A1F] transition-colors group"
@@ -182,23 +192,12 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/tekzo-solution-933004443/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-white hover:text-[#FF5A1F] transition-colors group"
                 >
                   <span>LinkedIn</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-white hover:text-[#FF5A1F] transition-colors group"
-                >
-                  <span>GitHub</span>
                   <ArrowUpRight className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100 group-hover:translate-x-0.5" />
                 </a>
               </li>
@@ -208,7 +207,7 @@ export default function Footer() {
 
         {/* Bottom Disclaimer and Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A3A3A3] gap-4 text-center sm:text-left">
-          <p>© 2025 XYZ Digital Agency. All rights reserved.</p>
+          <p>© 2025 TEKZO Digital Agency. All rights reserved.</p>
           <p className="font-mono text-[11px] text-[#737373]">
             Self-initiated concept showcases and creative engineering experiments.
           </p>

@@ -6,9 +6,9 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Selected Work & Concepts | XYZ Digital Agency",
+  title: "Selected Work & Concepts | Tekzo Digital Agency",
   description:
-    "Explore our four concept projects: Orbit Athletics, Pulse Digital, Noir Coffee, and XYZ Motion Lab.",
+    "Explore our four concept projects: Orbit Athletics, Pulse Digital, Noir Coffee, and Tekzo Motion Lab.",
 };
 
 export default function WorkPage() {

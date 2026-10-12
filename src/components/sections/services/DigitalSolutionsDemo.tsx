@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Globe, Smartphone, BarChart3, Zap, RefreshCw, Cpu, CheckCircle } from "lucide-react";
 
 interface EcosystemNode {
@@ -117,15 +118,23 @@ export default function DigitalSolutionsDemo() {
             <circle cx="227" cy="135" r="3" fill="#A855F7" className="animate-ping" style={{ animationDelay: "1.5s" }} />
           </svg>
 
-          {/* Central Hub Core: XYZ Engine */}
+          {/* Central Hub Core: Tekzo Engine */}
           <div className="relative z-20 flex flex-col items-center justify-center">
-            <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-[#121212] via-[#1c1c1c] to-[#0a0a0a] border-2 border-[#A855F7]/60 shadow-[0_0_25px_rgba(168,85,247,0.35)] flex items-center justify-center relative p-2.5 sm:p-0">
-              <Cpu className="w-5 h-5 sm:w-7 sm:h-7 text-[#A855F7] animate-pulse" />
+            <div className="w-13 h-13 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-black border-2 border-[#00F0FF]/60 shadow-[0_0_25px_rgba(0,240,255,0.35)] flex items-center justify-center relative overflow-hidden p-1">
+              <div className="relative w-full h-full rounded-lg sm:rounded-xl overflow-hidden">
+                <Image
+                  src="/logo/company_logo.jpeg"
+                  alt="Tekzo Core"
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
+              </div>
               {/* Spinning orbit ring */}
-              <div className="absolute inset-0 rounded-xl sm:rounded-2xl border border-dashed border-white/20 animate-spin" style={{ animationDuration: "12s" }} />
+              <div className="absolute inset-0 rounded-xl sm:rounded-2xl border border-dashed border-[#00F0FF]/30 animate-spin" style={{ animationDuration: "12s" }} />
             </div>
-            <span className="text-[7px] sm:text-[8px] font-mono uppercase text-white font-black tracking-widest mt-1 bg-black/80 px-1.5 sm:px-2 py-0.5 rounded border border-white/10">
-              XYZ CORE
+            <span className="text-[7px] sm:text-[8px] font-mono uppercase text-[#00F0FF] font-black tracking-widest mt-1 bg-black/90 px-1.5 sm:px-2 py-0.5 rounded border border-[#00F0FF]/30">
+              TEKZO CORE
             </span>
           </div>
 

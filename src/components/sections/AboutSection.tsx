@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Users, Sparkles, Shield, Cpu, Edit3, ArrowRight } from "lucide-react";
 import { TEAM_MEMBERS } from "@/data/team";
 
@@ -38,9 +39,17 @@ export default function AboutSection() {
         {/* Section Header */}
         <div className="mb-12 sm:mb-20">
           <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
+            <div className="relative w-4 h-4 rounded overflow-hidden bg-black shrink-0 border border-white/10">
+              <Image
+                src="/logo/company_logo.jpeg"
+                alt="Tekzo Logo"
+                fill
+                sizes="16px"
+                className="object-cover"
+              />
+            </div>
             <span className="text-xs font-mono uppercase tracking-widest text-[#FF5A1F] font-semibold">
-              ABOUT THE STUDIO
+              ABOUT TEKZO STUDIO
             </span>
           </div>
 
@@ -53,7 +62,7 @@ export default function AboutSection() {
 
             <div className="lg:col-span-5 space-y-4 text-[#A3A3A3] text-sm sm:text-base leading-relaxed">
               <p>
-                XYZ is an independent, boutique digital studio operating at the intersection of
+                Tekzo is an independent, boutique digital studio operating at the intersection of
                 generative AI art, motion design, and high-performance software engineering.
               </p>
               <p>

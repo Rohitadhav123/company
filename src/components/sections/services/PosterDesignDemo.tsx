@@ -157,7 +157,7 @@ export default function PosterDesignDemo() {
               {activeComp.tag}
             </span>
             <span className="text-[9px] font-mono text-[#737373]">
-              XYZ EDITION NO. {activeComp.id}
+              TEKZO EDITION NO. {activeComp.id}
             </span>
           </div>
 
@@ -201,7 +201,7 @@ export default function PosterDesignDemo() {
                       <div className="w-8 h-3 rounded-t-sm bg-amber-200/60 border border-white/40 mb-0.5" />
                       <div className="w-14 h-16 rounded-xl bg-gradient-to-b from-amber-500/40 via-amber-700/30 to-black border border-amber-300/50 flex items-center justify-center shadow-lg">
                         <span className="text-[7px] font-serif tracking-widest text-amber-200 uppercase">
-                          XYZ
+                          TEKZO
                         </span>
                       </div>
                     </div>

@@ -110,7 +110,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
           </div>
         );
 
-      case "04": // XYZ MOTION LAB
+      case "04": // TEKZO MOTION LAB
       default:
         return (
           <div className="relative w-full h-full flex items-center justify-center overflow-hidden p-4 xs:p-6">
