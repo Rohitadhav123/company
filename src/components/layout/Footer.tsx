@@ -155,7 +155,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href={`https://wa.me/919309105053?text=${encodeURIComponent(
+                  href={`https://wa.me/919309105052?text=${encodeURIComponent(
                     language === "mr"
                       ? "नमस्कार Tekzo Studio, मला नवीन प्रकल्पाविषयी चर्चा करायची आहे."
                       : "Hi Tekzo Studio, I'd like to discuss a new project."
@@ -165,7 +165,7 @@ export default function Footer() {
                   className="inline-flex items-center gap-2 text-white hover:text-emerald-400 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>WhatsApp (+91 93091 05053)</span>
+                  <span>WhatsApp (+91 93091 05052)</span>
                 </a>
               </li>
               <li className="text-xs text-[#A3A3A3] font-mono pt-1">
