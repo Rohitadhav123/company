@@ -155,13 +155,17 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://wa.me/15551234567?text=Hi%20Tekzo%20Studio,%20I'd%20like%20to%20discuss%20a%20new%20project."
+                  href={`https://wa.me/919860021812?text=${encodeURIComponent(
+                    language === "mr"
+                      ? "नमस्कार Tekzo Studio, मला नवीन प्रकल्पाविषयी चर्चा करायची आहे."
+                      : "Hi Tekzo Studio, I'd like to discuss a new project."
+                  )}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-white hover:text-emerald-400 transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-400" />
-                  <span>WhatsApp Business</span>
+                  <MessageCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>WhatsApp (+91 98600 21812)</span>
                 </a>
               </li>
               <li className="text-xs text-[#A3A3A3] font-mono pt-1">
