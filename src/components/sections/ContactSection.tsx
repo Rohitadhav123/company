@@ -145,7 +145,7 @@ export default function ContactSection({
   )}`;
 
   // Generate WhatsApp chat link
-  const whatsappUrl = `https://wa.me/919860021812?text=${encodeURIComponent(
+  const whatsappUrl = `https://wa.me/919309105053?text=${encodeURIComponent(
     language === "mr"
       ? `नमस्कार Tekzo Studio! माझे नाव ${formData.name || "क्लायंट"} (${formData.company || "कंपनी"}). मला ${formData.service} या सेवेत स्वारस्य आहे. मेसेज: ${formData.description || "चर्चेची वाट पाहत आहे."}`
       : `Hi Tekzo Studio! My name is ${formData.name || "Client"} (${formData.company || "Brand"}). I am interested in ${formData.service}. Message: ${formData.description || "Looking forward to speaking."}`
