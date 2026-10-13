@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import Toast, { ToastMessage } from "@/components/ui/Toast";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 
 interface ContactSectionProps {
   initialService?: string;
@@ -24,6 +26,8 @@ export default function ContactSection({
   initialService = "Website Development",
   initialProject = "",
 }: ContactSectionProps) {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -41,7 +45,14 @@ export default function ContactSection({
   const [serverError, setServerError] = useState<string | null>(null);
   const [toast, setToast] = useState<ToastMessage | null>(null);
 
-  const serviceOptions = [
+  const serviceOptions = language === "mr" ? [
+    "एआय पोस्टर डिझाइन",
+    "एआय अ‍ॅनिमेशन व्हिडिओ",
+    "वेबसाइट डेव्हलपमेंट",
+    "मोबाइल अ‍ॅप डेव्हलपमेंट",
+    "बिझनेस डेव्हलपमेंट प्लॅनिंग",
+    "डिजिटल बिझनेस सोल्यूशन्स",
+  ] : [
     "AI Poster Design",
     "AI Animation Videos",
     "Website Development",
@@ -52,14 +63,14 @@ export default function ContactSection({
 
   const validate = () => {
     const errs: { [key: string]: string } = {};
-    if (!formData.name.trim()) errs.name = "Please enter your name";
+    if (!formData.name.trim()) errs.name = t.contact.errName;
     if (!formData.email.trim()) {
-      errs.email = "Please enter your email";
+      errs.email = t.contact.errEmail;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errs.email = "Please enter a valid email address";
+      errs.email = t.contact.errEmailValid;
     }
     if (!formData.description.trim()) {
-      errs.description = "Please tell us briefly about your project goals";
+      errs.description = t.contact.errDescription;
     }
     setErrors(errs);
     return Object.keys(errs).length === 0;
@@ -154,17 +165,16 @@ export default function ContactSection({
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-20">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#151515] border border-white/10 text-[11px] font-mono text-[#FF5A1F] uppercase mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#FF5A1F]" />
-            <span>START A COLLABORATION</span>
+            <span>{t.contact.sectionTag}</span>
           </div>
 
           <h2 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black uppercase text-white tracking-tight leading-[0.95] mb-6 break-words">
-            LET&apos;S BUILD SOMETHING{" "}
-            <span className="text-orange-gradient">EXTRAORDINARY.</span>
+            {t.contact.headingLine1}{" "}
+            <span className="text-orange-gradient">{t.contact.headingLine2}</span>
           </h2>
 
           <p className="text-[#A3A3A3] text-sm sm:text-base md:text-lg leading-relaxed">
-            Have a brief ready or need creative consultation? Send your enquiry below,
-            or reach out directly via WhatsApp or Email. We respond within 24 business hours.
+            {t.contact.subheading}
           </p>
         </div>
 
@@ -180,19 +190,16 @@ export default function ContactSection({
                 <div className="space-y-2">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400">
                     <Check className="w-3.5 h-3.5" />
-                    <span>STORED IN POSTGRESQL {submissionId ? `• RECORD #${submissionId}` : ""}</span>
+                    <span>{t.contact.successBadge} {submissionId ? `• #${submissionId}` : ""}</span>
                   </div>
 
                   <h3 className="text-3xl font-black uppercase text-white tracking-tight">
-                    ENQUIRY RECEIVED!
+                    {t.contact.successTitle}
                   </h3>
                 </div>
 
                 <p className="text-sm text-[#A3A3A3] max-w-md mx-auto leading-relaxed">
-                  Thank you, <span className="text-white font-bold">{formData.name}</span>!
-                  Your project specifications for{" "}
-                  <span className="text-[#FF5A1F] font-bold">{formData.service}</span> have been
-                  successfully recorded into our PostgreSQL database.
+                  {t.contact.successMessage}
                 </p>
 
                 {/* Direct Action Buttons for Immediate Delivery */}
@@ -202,7 +209,7 @@ export default function ContactSection({
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#FF5A1F] text-black font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-colors"
                   >
                     <Mail className="w-4 h-4" />
-                    <span>Open in Email App</span>
+                    <span>{t.contact.openEmailCta}</span>
                   </a>
 
                   <a
@@ -212,7 +219,7 @@ export default function ContactSection({
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-[#1e293b] text-white border border-white/10 hover:border-emerald-500 font-extrabold text-xs uppercase tracking-wider transition-colors"
                   >
                     <MessageCircle className="w-4 h-4 text-emerald-400" />
-                    <span>Send via WhatsApp</span>
+                    <span>{t.contact.whatsappCta}</span>
                   </a>
                 </div>
 
@@ -232,7 +239,7 @@ export default function ContactSection({
                   }}
                   className="text-xs font-mono text-[#A3A3A3] hover:text-white transition-colors underline pt-4 block mx-auto cursor-pointer"
                 >
-                  Submit Another Enquiry
+                  {t.contact.submitAnother}
                 </button>
               </div>
             ) : (
@@ -242,7 +249,7 @@ export default function ContactSection({
                   <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-400 flex items-start gap-2.5 animate-in fade-in">
                     <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-red-400" />
                     <div className="flex-1">
-                      <p className="font-bold mb-0.5">Submission Error</p>
+                      <p className="font-bold mb-0.5">{language === "mr" ? "त्रुटी आढळली" : "Submission Error"}</p>
                       <p>{serverError}</p>
                     </div>
                   </div>
@@ -252,11 +259,11 @@ export default function ContactSection({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-white mb-2">
-                      Your Name <span className="text-[#FF5A1F]">*</span>
+                      {t.contact.nameLabel} <span className="text-[#FF5A1F]">*</span>
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. Alex Mercer"
+                      placeholder={t.contact.namePlaceholder}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className={`w-full px-4 py-3.5 rounded-xl bg-[#161616] border text-white text-sm focus:outline-none focus:border-[#FF5A1F] transition-colors ${
@@ -273,11 +280,11 @@ export default function ContactSection({
 
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-white mb-2">
-                      Work Email <span className="text-[#FF5A1F]">*</span>
+                      {t.contact.emailLabel} <span className="text-[#FF5A1F]">*</span>
                     </label>
                     <input
                       type="email"
-                      placeholder="alex@company.com"
+                      placeholder={t.contact.emailPlaceholder}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className={`w-full px-4 py-3.5 rounded-xl bg-[#161616] border text-white text-sm focus:outline-none focus:border-[#FF5A1F] transition-colors ${
@@ -296,11 +303,11 @@ export default function ContactSection({
                 {/* Company Name */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-white mb-2">
-                    Company / Organization
+                    {t.contact.companyLabel}
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Acme Innovations"
+                    placeholder={t.contact.companyPlaceholder}
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     className="w-full px-4 py-3.5 rounded-xl bg-[#161616] border border-white/10 text-white text-sm focus:outline-none focus:border-[#FF5A1F] transition-colors"
@@ -310,7 +317,7 @@ export default function ContactSection({
                 {/* Service Selection Pills */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-white mb-2">
-                    Primary Service Needed
+                    {t.contact.serviceLabel}
                   </label>
                   <div className="flex flex-wrap gap-1.5 xs:gap-2">
                     {serviceOptions.map((serv) => (
@@ -330,15 +337,14 @@ export default function ContactSection({
                   </div>
                 </div>
 
-
                 {/* Project Description */}
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-white mb-2">
-                    Project Overview & Objectives <span className="text-[#FF5A1F]">*</span>
+                    {t.contact.descriptionLabel} <span className="text-[#FF5A1F]">*</span>
                   </label>
                   <textarea
                     rows={4}
-                    placeholder="Describe your project vision, target timeline, key requirements, or reference links..."
+                    placeholder={t.contact.descriptionPlaceholder}
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className={`w-full px-4 py-3.5 rounded-xl bg-[#161616] border text-white text-sm focus:outline-none focus:border-[#FF5A1F] transition-colors resize-none ${
@@ -363,11 +369,11 @@ export default function ContactSection({
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin" />
-                      <span>SAVING TO POSTGRESQL...</span>
+                      <span>{t.contact.submittingButton}</span>
                     </>
                   ) : (
                     <>
-                      <span>SUBMIT PROJECT BRIEF</span>
+                      <span>{t.contact.submitButton}</span>
                       <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </>
                   )}

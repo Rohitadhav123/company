@@ -2,26 +2,29 @@
 
 import Image from "next/image";
 import { Users, Sparkles, Shield, Cpu, Edit3, ArrowRight } from "lucide-react";
-import { TEAM_MEMBERS } from "@/data/team";
+import { getLocalizedTeam } from "@/data/localizedData";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 
 export default function AboutSection() {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
+  const localizedTeam = getLocalizedTeam(language);
+
   const studioValues = [
     {
-      title: "Boutique Studio Model",
-      description:
-        "No multi-layered account managers or bureaucratic bottlenecks. You collaborate directly with senior creators and technical architects.",
+      title: t.about.val1Title,
+      description: t.about.val1Desc,
       icon: Users,
     },
     {
-      title: "Cinematic Aesthetic Bar",
-      description:
-        "We reject generic corporate templates. Every project is crafted with bold typography, dark palettes, and motion that commands attention.",
+      title: t.about.val2Title,
+      description: t.about.val2Desc,
       icon: Sparkles,
     },
     {
-      title: "Modern Engineering Stack",
-      description:
-        "We build on Next.js, React 19, TypeScript, and hardware-accelerated WebGL to achieve instant loading and buttery 60fps responsiveness.",
+      title: t.about.val3Title,
+      description: t.about.val3Desc,
       icon: Cpu,
     },
   ];
@@ -49,25 +52,23 @@ export default function AboutSection() {
               />
             </div>
             <span className="text-xs font-mono uppercase tracking-widest text-[#FF5A1F] font-semibold">
-              ABOUT TEKZO STUDIO
+              {t.about.sectionTag}
             </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-7">
               <h2 className="text-3xl xs:text-4xl sm:text-6xl font-black uppercase text-white tracking-tight leading-tight">
-                A COMPACT STUDIO FOR <span className="text-chrome">AMBITIOUS BRANDS.</span>
+                {t.about.headingPart1} <span className="text-chrome">{t.about.headingPart2}</span>
               </h2>
             </div>
 
             <div className="lg:col-span-5 space-y-4 text-[#A3A3A3] text-sm sm:text-base leading-relaxed">
               <p>
-                Tekzo is an independent, boutique digital studio operating at the intersection of
-                generative AI art, motion design, and high-performance software engineering.
+                {t.about.paragraph1}
               </p>
               <p>
-                We collaborate with visionary founders and forward-thinking companies to craft
-                immersive web flagships, viral advertising creatives, and transformative digital products.
+                {t.about.paragraph2}
               </p>
             </div>
           </div>
@@ -102,23 +103,27 @@ export default function AboutSection() {
             <div>
               <div className="flex items-center gap-2 mb-2 text-xs font-mono text-[#A3A3A3]">
                 <Edit3 className="w-3.5 h-3.5 text-[#FF5A1F]" />
-                <span>STUDIO ROSTER & SPECIALISTS</span>
+                <span>{language === "mr" ? "स्टुडिओ टीम आणि विशेषज्ञ" : "STUDIO ROSTER & SPECIALISTS"}</span>
               </div>
               <h3 className="text-2xl xs:text-3xl sm:text-4xl font-black uppercase text-white tracking-tight">
-                CORE TEAM
+                {t.about.teamHeading}
               </h3>
             </div>
 
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#161616] border border-white/10 text-[11px] font-mono text-[#A3A3A3] max-w-full">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF5A1F] shrink-0" />
-              <span className="hidden sm:inline">EDITABLE PLACEHOLDERS (READY TO CUSTOMIZE IN DATA/TEAM.TS)</span>
-              <span className="sm:hidden truncate">TEAM ROSTER (CUSTOMIZABLE)</span>
+              <span className="hidden sm:inline">
+                {language === "mr" ? "तज्ज्ञ आणि समर्पित टीम (CUSTOMIZABLE IN DATA/TEAM.TS)" : "EDITABLE PLACEHOLDERS (READY TO CUSTOMIZE IN DATA/TEAM.TS)"}
+              </span>
+              <span className="sm:hidden truncate">
+                {language === "mr" ? "आमची टीम" : "TEAM ROSTER"}
+              </span>
             </div>
           </div>
 
           {/* Team Grid (5 editable roles) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TEAM_MEMBERS.map((member) => (
+            {localizedTeam.map((member) => (
               <div
                 key={member.id}
                 className="p-5 xs:p-6 sm:p-7 rounded-3xl bg-[#111111] border border-white/10 hover:border-[#FF5A1F]/40 transition-all duration-300 flex flex-col justify-between group"
@@ -131,7 +136,7 @@ export default function AboutSection() {
                     </div>
 
                     <span className="text-[10px] font-mono text-[#737373] bg-black/60 px-2.5 py-1 rounded-full border border-white/5">
-                      ROLE PLACEHOLDER
+                      {language === "mr" ? "तज्ज्ञ भूमिका" : "ROLE PROFILE"}
                     </span>
                   </div>
 

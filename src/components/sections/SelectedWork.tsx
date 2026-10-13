@@ -2,7 +2,10 @@
 
 import { useState } from "react";
 import { Sparkles, Layers, ShieldCheck, ArrowUpRight } from "lucide-react";
-import { PROJECTS, Project } from "@/data/projects";
+import { Project } from "@/data/projects";
+import { getLocalizedProjects } from "@/data/localizedData";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 import ProjectCard from "@/components/ui/ProjectCard";
 import ProjectModal from "@/components/ui/ProjectModal";
 
@@ -11,18 +14,22 @@ interface SelectedWorkProps {
 }
 
 export default function SelectedWork({ onSelectProjectForEnquiry }: SelectedWorkProps) {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
+  const localizedProjects = getLocalizedProjects(language);
+
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filterOptions = [
-    { label: "All Projects", value: "all" },
-    { label: "AI Creative", value: "ai" },
-    { label: "Web & SaaS", value: "web" },
-    { label: "Brand & Commerce", value: "brand" },
-    { label: "3D Motion Lab", value: "motion" },
+    { label: t.work.filterAll, value: "all" },
+    { label: t.work.filterAi, value: "ai" },
+    { label: t.work.filterWeb, value: "web" },
+    { label: t.work.filterBrand, value: "brand" },
+    { label: t.work.filterMotion, value: "motion" },
   ];
 
-  const filteredProjects = PROJECTS.filter((p) => {
+  const filteredProjects = localizedProjects.filter((p) => {
     if (activeFilter === "all") return true;
     if (activeFilter === "ai") return p.id === "01";
     if (activeFilter === "web") return p.id === "02";
@@ -57,17 +64,16 @@ export default function SelectedWork({ onSelectProjectForEnquiry }: SelectedWork
             <div className="flex items-center gap-2 mb-3">
               <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
               <span className="text-xs font-mono uppercase tracking-widest text-[#FF5A1F] font-semibold">
-                CURATED CASE STUDIES
+                {t.work.sectionTag}
               </span>
             </div>
 
             <h2 className="text-3xl xs:text-4xl sm:text-6xl font-black uppercase text-white tracking-tight">
-              SELECTED WORK
+              {t.work.heading}
             </h2>
 
             <p className="mt-4 text-[#A3A3A3] text-sm sm:text-base max-w-xl leading-relaxed">
-              Explore four self-initiated concept projects demonstrating our mastery in
-              AI creative generation, high-velocity web engineering, and kinetic 3D experiences.
+              {t.work.subheading}
             </p>
           </div>
 
@@ -75,11 +81,10 @@ export default function SelectedWork({ onSelectProjectForEnquiry }: SelectedWork
           <div className="p-4 rounded-2xl bg-[#121212] border border-white/10 w-full md:w-auto md:max-w-sm shrink-0">
             <div className="flex items-center gap-2 text-xs font-mono text-white mb-1">
               <ShieldCheck className="w-4 h-4 text-[#FF5A1F]" />
-              <span className="font-bold">CONCEPT SHOWCASE NOTICE</span>
+              <span className="font-bold">{t.work.disclaimerTitle}</span>
             </div>
             <p className="text-[11px] text-[#A3A3A3] leading-normal font-sans">
-              All four projects below are fictional concepts and R&D prototypes created
-              to demonstrate design and technical capabilities without synthetic claims.
+              {t.work.disclaimerText}
             </p>
           </div>
         </div>
@@ -116,10 +121,10 @@ export default function SelectedWork({ onSelectProjectForEnquiry }: SelectedWork
         <div className="mt-12 sm:mt-16 p-5 xs:p-7 sm:p-8 rounded-3xl bg-[#111111] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="text-center sm:text-left">
             <h4 className="text-lg xs:text-xl font-bold text-white uppercase tracking-tight mb-1">
-              HAVE A CUSTOM VISION IN MIND?
+              {language === "mr" ? "तुमच्या ब्रँडसाठी असा प्रकल्प हवा आहे का?" : "HAVE A CUSTOM VISION IN MIND?"}
             </h4>
             <p className="text-xs sm:text-sm text-[#A3A3A3]">
-              We translate ambitious briefs into cinematic websites, mobile apps, and campaigns.
+              {language === "mr" ? "आम्ही तुमच्या कल्पनेला उच्च दर्जाच्या वेबसाइट्स, मोबाइल अ‍ॅप्स आणि जाहिरातींमध्ये रूपांतरित करतो." : "We translate ambitious briefs into cinematic websites, mobile apps, and campaigns."}
             </p>
           </div>
 
@@ -127,7 +132,7 @@ export default function SelectedWork({ onSelectProjectForEnquiry }: SelectedWork
             href="#contact"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#FF5A1F] text-black font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-colors shrink-0"
           >
-            <span>COMMISSION TEKZO</span>
+            <span>{t.nav.startProject}</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

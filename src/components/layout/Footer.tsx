@@ -3,9 +3,14 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { ArrowUp, ArrowUpRight, Mail, MessageCircle, Globe } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
+import LanguageToggle from "@/components/ui/LanguageToggle";
 
 export default function Footer() {
   const [timeString, setTimeString] = useState<string>("");
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
 
   useEffect(() => {
     const updateTime = () => {
@@ -57,19 +62,21 @@ export default function Footer() {
               <span className="w-3 h-3 rounded-full bg-[#00F0FF] shadow-[0_0_12px_#00F0FF]" />
             </div>
             <p className="text-[#A3A3A3] text-sm sm:text-base max-w-md leading-relaxed">
-              We make digital feel alive through synthetic AI art direction,
-              cinematic web design, fluid mobile applications, and intelligent business automations.
+              {t.footer.tagline}
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            {/* Language Toggle in Footer */}
+            <LanguageToggle variant="navbar" className="justify-center sm:justify-start" />
+
             <div className="bg-[#111111] border border-white/10 px-4 xs:px-5 py-3 rounded-2xl flex items-center justify-between sm:justify-start gap-3 sm:gap-4 w-full sm:w-auto">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                <span className="text-xs font-mono uppercase text-[#A3A3A3]">Studio Live Time</span>
+                <span className="text-xs font-mono uppercase text-[#A3A3A3]">{t.footer.liveStudioTime}</span>
               </div>
               <span className="text-sm font-mono font-bold text-white tracking-wider">
-                {timeString || "00:00:00"} UTC
+                {timeString || "00:00:00"} {t.footer.istTime}
               </span>
             </div>
 
@@ -78,7 +85,7 @@ export default function Footer() {
               className="group flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl bg-[#151515] border border-white/10 hover:border-[#FF5A1F] text-xs font-mono uppercase tracking-wider text-white hover:text-[#FF5A1F] transition-all w-full sm:w-auto min-h-[44px]"
               aria-label="Scroll to top"
             >
-              <span>Back to Top</span>
+              <span>{t.footer.backToTop}</span>
               <ArrowUp className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
             </button>
           </div>
@@ -88,32 +95,32 @@ export default function Footer() {
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-8 xs:gap-10 py-10 sm:py-14 border-b border-white/10">
           <div>
             <h4 className="text-xs font-mono uppercase tracking-widest text-[#A3A3A3] mb-4">
-              Navigation
+              {t.footer.quickLinks}
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
                 <a href="#work" className="text-white hover:text-[#FF5A1F] transition-colors">
-                  Selected Work
+                  {t.nav.work}
                 </a>
               </li>
               <li>
                 <a href="#services" className="text-white hover:text-[#FF5A1F] transition-colors">
-                  Studio Services
+                  {t.nav.services}
                 </a>
               </li>
               <li>
                 <a href="#about" className="text-white hover:text-[#FF5A1F] transition-colors">
-                  About the Studio
+                  {t.nav.about}
                 </a>
               </li>
               <li>
                 <a href="#process" className="text-white hover:text-[#FF5A1F] transition-colors">
-                  4-Stage Process
+                  {t.nav.process}
                 </a>
               </li>
               <li>
                 <a href="#contact" className="text-white hover:text-[#FF5A1F] transition-colors">
-                  Project Enquiry
+                  {t.nav.contact}
                 </a>
               </li>
             </ul>
@@ -121,20 +128,20 @@ export default function Footer() {
 
           <div>
             <h4 className="text-xs font-mono uppercase tracking-widest text-[#A3A3A3] mb-4">
-              Core Capabilities
+              {t.footer.studioCapabilities}
             </h4>
             <ul className="space-y-2.5 text-sm text-[#A3A3A3]">
-              <li>AI Poster & Creative Ads</li>
-              <li>Cinematic Video Reels</li>
-              <li>Next.js Web Applications</li>
-              <li>iOS & Android Apps</li>
-              <li>Digital Automation Systems</li>
+              <li>{language === "mr" ? "एआय पोस्टर व जाहिरात डिझाइन" : "AI Poster & Creative Ads"}</li>
+              <li>{language === "mr" ? "सिनेमॅटिक व्हिडिओ रील्स" : "Cinematic Video Reels"}</li>
+              <li>{language === "mr" ? "Next.js वेब अ‍ॅप्लिकेशन्स" : "Next.js Web Applications"}</li>
+              <li>{language === "mr" ? "iOS आणि Android अ‍ॅप्स" : "iOS & Android Apps"}</li>
+              <li>{language === "mr" ? "डिजिटल ऑटोमेशन प्रणाली" : "Digital Automation Systems"}</li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-xs font-mono uppercase tracking-widest text-[#A3A3A3] mb-4">
-              Direct Contact
+              {t.footer.directContact}
             </h4>
             <ul className="space-y-3 text-sm">
               <li>
@@ -158,14 +165,14 @@ export default function Footer() {
                 </a>
               </li>
               <li className="text-xs text-[#A3A3A3] font-mono pt-1">
-                Response SLA: Within 24 Business Hours
+                {language === "mr" ? "प्रतिसाद मुदत: २४ तासांच्या आत" : "Response SLA: Within 24 Business Hours"}
               </li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-xs font-mono uppercase tracking-widest text-[#A3A3A3] mb-4">
-              Digital Presence
+              {language === "mr" ? "सोशल मीडिया" : "Digital Presence"}
             </h4>
             <ul className="space-y-2.5 text-sm">
               <li>
@@ -207,17 +214,17 @@ export default function Footer() {
 
         {/* Bottom Disclaimer and Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#A3A3A3] gap-4 text-center sm:text-left">
-          <p>© 2025 TEKZO Digital Agency. All rights reserved.</p>
+          <p>© 2025 TEKZO Digital Agency. {t.footer.rights}</p>
           <p className="font-mono text-[11px] text-[#737373]">
-            Self-initiated concept showcases and creative engineering experiments.
+            {language === "mr" ? "संकल्पना प्रकल्प आणि क्रिएटिव्ह इंजिनिअरिंग प्रात्यक्षिके." : "Self-initiated concept showcases and creative engineering experiments."}
           </p>
           <div className="flex items-center gap-4">
             <span className="text-[#737373] hover:text-white transition-colors cursor-pointer">
-              Privacy Policy
+              {t.footer.privacy}
             </span>
             <span>•</span>
             <span className="text-[#737373] hover:text-white transition-colors cursor-pointer">
-              Terms of Engagement
+              {t.footer.terms}
             </span>
           </div>
         </div>

@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 import { CheckCircle2, ArrowRight, Compass, Palette, Code2, Rocket } from "lucide-react";
-import { PROCESS_STEPS } from "@/data/process";
+import { getLocalizedProcess } from "@/data/localizedData";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 
 export default function ProcessSection() {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
+  const localizedSteps = getLocalizedProcess(language);
+
   const [activeStepIndex, setActiveStepIndex] = useState<number>(0);
 
   const getStepIcon = (index: number) => {
@@ -35,18 +41,17 @@ export default function ProcessSection() {
           <div className="flex items-center gap-2 mb-3">
             <span className="w-2 h-2 rounded-full bg-[#FF5A1F]" />
             <span className="text-xs font-mono uppercase tracking-widest text-[#FF5A1F] font-semibold">
-              EXECUTION FRAMEWORK
+              {t.process.sectionTag}
             </span>
           </div>
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <h2 className="text-3xl xs:text-4xl sm:text-6xl font-black uppercase text-white tracking-tight">
-              OUR PROCESS
+              {t.process.heading}
             </h2>
 
             <p className="text-[#A3A3A3] text-sm sm:text-base max-w-xl leading-relaxed">
-              We adhere to a rigorous 4-stage engineering and design sprint model
-              ensuring clear communication, tight iteration loops, and flawless production delivery.
+              {t.process.subheading}
             </p>
           </div>
         </div>
@@ -62,7 +67,7 @@ export default function ProcessSection() {
 
           {/* Stepper Buttons: 1-col on small mobile, 2-col on tablet, 4-col on desktop */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 relative z-10">
-            {PROCESS_STEPS.map((step, idx) => {
+            {localizedSteps.map((step, idx) => {
               const isActive = idx === activeStepIndex;
               const isPast = idx < activeStepIndex;
               return (
@@ -101,7 +106,7 @@ export default function ProcessSection() {
 
                   <div className="order-1 sm:order-2 min-w-0">
                     <span className="sm:hidden font-mono text-[10px] text-[#FF5A1F] font-bold block mb-0.5">
-                      STAGE {step.step}
+                      {language === "mr" ? `टप्पा ${step.step}` : `STAGE ${step.step}`}
                     </span>
                     <h4
                       className={`text-base sm:text-lg font-bold uppercase tracking-tight transition-colors truncate ${
@@ -131,20 +136,20 @@ export default function ProcessSection() {
                 </div>
                 <div>
                   <span className="text-xs font-mono text-[#FF5A1F] font-bold tracking-wider uppercase block">
-                    STAGE {PROCESS_STEPS[activeStepIndex].step}
+                    {language === "mr" ? `टप्पा ${localizedSteps[activeStepIndex].step}` : `STAGE ${localizedSteps[activeStepIndex].step}`}
                   </span>
                   <h3 className="text-2xl xs:text-3xl sm:text-4xl font-black uppercase text-white tracking-tight">
-                    {PROCESS_STEPS[activeStepIndex].name}
+                    {localizedSteps[activeStepIndex].name}
                   </h3>
                 </div>
               </div>
 
               <p className="text-base sm:text-lg text-[#FF5A1F] font-medium mb-4">
-                {PROCESS_STEPS[activeStepIndex].subtitle}
+                {localizedSteps[activeStepIndex].subtitle}
               </p>
 
               <p className="text-sm sm:text-base text-[#A3A3A3] leading-relaxed mb-8">
-                {PROCESS_STEPS[activeStepIndex].description}
+                {localizedSteps[activeStepIndex].description}
               </p>
 
               {/* Milestone Deliverable Box */}
@@ -152,11 +157,11 @@ export default function ProcessSection() {
                 <div className="flex items-center gap-2 shrink-0">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#FF5A1F] animate-pulse shrink-0" />
                   <span className="text-xs font-mono text-[#A3A3A3] uppercase">
-                    Milestone Deliverable:
+                    {t.process.milestoneDeliverable}:
                   </span>
                 </div>
                 <span className="text-xs font-mono font-bold text-white break-words">
-                  {PROCESS_STEPS[activeStepIndex].deliverable}
+                  {localizedSteps[activeStepIndex].deliverable}
                 </span>
               </div>
             </div>
@@ -164,11 +169,11 @@ export default function ProcessSection() {
             {/* Right Checklist */}
             <div className="lg:w-5/12 w-full p-6 sm:p-8 rounded-2xl bg-[#161616] border border-white/5">
               <h4 className="text-xs font-mono uppercase tracking-widest text-white mb-6">
-                STAGE SPRINT HIGHLIGHTS
+                {t.process.keyDeliverables}
               </h4>
 
               <div className="space-y-4">
-                {PROCESS_STEPS[activeStepIndex].bulletPoints.map((point, pIdx) => (
+                {localizedSteps[activeStepIndex].bulletPoints.map((point, pIdx) => (
                   <div key={pIdx} className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-[#FF5A1F] mt-1 shrink-0" />
                     <span className="text-xs sm:text-sm text-[#D4D4D4] leading-relaxed">
@@ -180,14 +185,14 @@ export default function ProcessSection() {
 
               <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
                 <span className="text-[11px] font-mono text-[#737373]">
-                  STEP {activeStepIndex + 1} OF 4
+                  {language === "mr" ? `टप्पा ${activeStepIndex + 1} / ४` : `STEP ${activeStepIndex + 1} OF 4`}
                 </span>
                 {activeStepIndex < 3 ? (
                   <button
                     onClick={() => setActiveStepIndex(activeStepIndex + 1)}
                     className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#FF5A1F] hover:text-white transition-colors"
                   >
-                    <span>NEXT STAGE</span>
+                    <span>{language === "mr" ? "पुढील टप्पा" : "NEXT STAGE"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 ) : (
@@ -195,7 +200,7 @@ export default function ProcessSection() {
                     href="#contact"
                     className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#FF5A1F] hover:text-white transition-colors"
                   >
-                    <span>READY TO BEGIN?</span>
+                    <span>{language === "mr" ? "सुरू करण्यास तयार?" : "READY TO BEGIN?"}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
                 )}

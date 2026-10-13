@@ -9,34 +9,37 @@ import ServicesSection from "@/components/sections/ServicesSection";
 import AboutSection from "@/components/sections/AboutSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import ContactSection from "@/components/sections/ContactSection";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function HomePage() {
-  const [selectedService, setSelectedService] = useState<string>("Web Design & Development");
+  const { language } = useLanguage();
+  const [selectedService, setSelectedService] = useState<string>("");
   const [selectedProject, setSelectedProject] = useState<string>("");
 
   const handleSelectService = (serviceId: string) => {
+    const isMr = language === "mr";
     switch (serviceId) {
       case "ai-poster":
       case "ai-creative":
-        setSelectedService("AI Poster Design");
+        setSelectedService(isMr ? "एआय पोस्टर डिझाइन" : "AI Poster Design");
         break;
       case "ai-video":
-        setSelectedService("AI Animation Videos");
+        setSelectedService(isMr ? "एआय अ‍ॅनिमेशन व्हिडिओ" : "AI Animation Videos");
         break;
       case "web-development":
-        setSelectedService("Website Development");
+        setSelectedService(isMr ? "वेबसाइट डेव्हलपमेंट" : "Website Development");
         break;
       case "app-development":
-        setSelectedService("Mobile App Development");
+        setSelectedService(isMr ? "मोबाइल अ‍ॅप डेव्हलपमेंट" : "Mobile App Development");
         break;
       case "business-planning":
-        setSelectedService("Business Development Planning");
+        setSelectedService(isMr ? "बिझनेस डेव्हलपमेंट प्लॅनिंग" : "Business Development Planning");
         break;
       case "business-solutions":
-        setSelectedService("Digital Business Solutions");
+        setSelectedService(isMr ? "डिजिटल बिझनेस सोल्यूशन्स" : "Digital Business Solutions");
         break;
       default:
-        setSelectedService("Website Development");
+        setSelectedService(isMr ? "वेबसाइट डेव्हलपमेंट" : "Website Development");
     }
   };
 

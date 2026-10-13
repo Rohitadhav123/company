@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { X, CheckCircle2, ArrowUpRight, Layers, Cpu, ShieldCheck } from "lucide-react";
 import { ServiceItem } from "@/data/services";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 
 interface ServiceDetailModalProps {
   service: ServiceItem | null;
@@ -15,6 +17,8 @@ export default function ServiceDetailModal({
   onClose,
   onEnquire,
 }: ServiceDetailModalProps) {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -55,7 +59,7 @@ export default function ServiceDetailModal({
                   backgroundColor: `${service.accent}15`,
                 }}
               >
-                SERVICE {service.number}
+                {language === "mr" ? `सेवा ${service.number}` : `SERVICE ${service.number}`}
               </span>
               <span className="text-xs font-mono text-[#A3A3A3] uppercase">
                 {service.category}
@@ -87,7 +91,7 @@ export default function ServiceDetailModal({
           {/* Detailed Narrative */}
           <div>
             <h4 className="text-xs font-mono uppercase tracking-widest text-white mb-2">
-              PRACTICE OVERVIEW
+              {t.services.modalOverview}
             </h4>
             <p className="leading-relaxed sm:text-base text-[#D4D4D4]">
               {service.description}
@@ -98,7 +102,7 @@ export default function ServiceDetailModal({
           <div>
             <h4 className="text-xs font-mono uppercase tracking-widest text-white mb-3 flex items-center gap-2">
               <Layers className="w-4 h-4 text-[#FF5A1F]" />
-              <span>CORE CAPABILITIES & OFFERINGS</span>
+              <span>{t.services.modalCapabilities}</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               {service.offerings.map((off, idx) => (
@@ -120,7 +124,7 @@ export default function ServiceDetailModal({
           <div className="p-5 rounded-2xl bg-[#141414] border border-white/10">
             <h4 className="text-xs font-mono uppercase tracking-widest text-white mb-3 flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#FF5A1F]" />
-              <span>WHAT CLIENTS RECEIVE</span>
+              <span>{t.services.modalDeliverables}</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {service.deliverables.map((deliv, idx) => (
@@ -136,7 +140,7 @@ export default function ServiceDetailModal({
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
             <div>
               <span className="text-xs font-mono uppercase tracking-wider text-white block mb-2">
-                TECHNOLOGY ECOSYSTEM:
+                {t.services.modalTech}:
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {service.technologies.map((tech, tIdx) => (
@@ -155,7 +159,7 @@ export default function ServiceDetailModal({
         {/* Modal Footer / Actions */}
         <div className="relative z-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-xs font-mono text-[#A3A3A3] text-center sm:text-left">
-            <span className="text-white font-bold">Standard SLA:</span> 2-4 Week Production Sprints
+            <span className="text-white font-bold">{language === "mr" ? "अपेक्षित मुदत:" : "Standard SLA:"}</span> {language === "mr" ? "२-४ आठवड्यांचे उत्पादन सत्र" : "2-4 Week Production Sprints"}
           </div>
 
           <button
@@ -166,7 +170,7 @@ export default function ServiceDetailModal({
             }}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 xs:px-8 py-3.5 rounded-full bg-[#FF5A1F] text-black font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_25px_rgba(255,90,31,0.5)]"
           >
-            <span>COMMISSION THIS SERVICE</span>
+            <span>{t.services.modalCta}</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>

@@ -5,8 +5,13 @@ import Image from "next/image";
 import { ArrowDown, ArrowUpRight, Play, Info, CheckCircle2, Film } from "lucide-react";
 import gsap from "gsap";
 import ThreeBackground from "@/components/ui/ThreeBackground";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 
 export default function Hero() {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
+
   const heroRef = useRef<HTMLDivElement>(null);
   const headlineLine1Ref = useRef<HTMLHeadingElement>(null);
   const headlineLine2Ref = useRef<HTMLHeadingElement>(null);
@@ -142,11 +147,11 @@ export default function Hero() {
             </div>
             <span className="w-1.5 h-1.5 rounded-full bg-[#00F0FF] shadow-[0_0_8px_#00F0FF] animate-pulse" />
             <span className="text-[11px] font-mono tracking-widest uppercase text-white/90">
-              TEKZO DIGITAL STUDIO
+              {t.hero.badgeStudio}
             </span>
           </div>
           <span className="hidden sm:inline-block text-xs font-mono text-[#A3A3A3]">
-            AI CREATIVE • WEB • MOBILE • AUTOMATION
+            {t.hero.badgePill}
           </span>
         </div>
 
@@ -156,14 +161,14 @@ export default function Hero() {
             ref={headlineLine1Ref}
             className="text-[32px] xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight sm:tracking-tighter uppercase text-white leading-[0.95] break-words"
           >
-            WE MAKE DIGITAL
+            {t.hero.headline1}
           </h1>
           <h1
             ref={headlineLine2Ref}
             className="text-[32px] xs:text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight sm:tracking-tighter uppercase leading-[0.95] flex flex-wrap items-center gap-2 sm:gap-6 break-words"
           >
             <span className="text-orange-gradient drop-shadow-[0_0_35px_rgba(255,90,31,0.4)]">
-              FEEL ALIVE.
+              {t.hero.headline2}
             </span>
           </h1>
         </div>
@@ -173,8 +178,7 @@ export default function Hero() {
           ref={subtextRef}
           className="max-w-2xl text-sm sm:text-base md:text-lg lg:text-xl text-[#A3A3A3] font-normal leading-relaxed mb-8 sm:mb-10"
         >
-          We create powerful digital experiences through AI creativity, modern
-          websites, mobile apps, and innovative business solutions.
+          {t.hero.subtext}
         </p>
 
         {/* Action Buttons: Full width on mobile, inline on desktop */}
@@ -187,7 +191,7 @@ export default function Hero() {
             onClick={() => scrollToSection("contact")}
             className="group relative w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#FF5A1F] text-black font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 hover:bg-white hover:shadow-[0_0_35px_rgba(255,90,31,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <span>START A PROJECT</span>
+            <span>{t.hero.startProjectCta}</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </button>
 
@@ -196,7 +200,7 @@ export default function Hero() {
             onClick={() => scrollToSection("work")}
             className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-[#151515]/80 hover:bg-[#202020] border border-white/15 hover:border-[#FF5A1F] text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 backdrop-blur-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
           >
-            <span>EXPLORE OUR WORK</span>
+            <span>{t.hero.exploreWorkCta}</span>
             <ArrowDown className="w-4 h-4 text-[#A3A3A3] group-hover:text-[#FF5A1F] transition-transform group-hover:translate-y-1" />
           </button>
         </div>
@@ -209,21 +213,21 @@ export default function Hero() {
           {videoLoaded ? (
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-[10px] sm:text-[11px] font-mono text-emerald-300">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-              <span className="hidden sm:inline">CUSTOM HERO VIDEO ACTIVE (/videos/tekzo-hero.mp4)</span>
-              <span className="sm:hidden">HERO VIDEO ACTIVE</span>
+              <span className="hidden sm:inline">{t.hero.videoActive}</span>
+              <span className="sm:hidden">{t.hero.videoActive}</span>
             </div>
           ) : (
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#151515] border border-[#FF5A1F]/30 text-[10px] sm:text-[11px] font-mono text-[#A3A3A3]">
               <Film className="w-3.5 h-3.5 text-[#FF5A1F] shrink-0" />
-              <span className="hidden sm:inline">CINEMATIC CANVAS FALLBACK</span>
-              <span className="sm:hidden">CANVAS FALLBACK</span>
+              <span className="hidden sm:inline">{t.hero.canvasFallback}</span>
+              <span className="sm:hidden">{t.hero.canvasFallback}</span>
               <button
                 type="button"
                 onClick={() => setShowVideoInfoModal(true)}
                 className="text-[#FF5A1F] hover:underline flex items-center gap-1 font-bold ml-1"
                 title="Click for video placement instructions"
               >
-                <span>[Guide]</span>
+                <span>{t.hero.guideLabel}</span>
                 <Info className="w-3 h-3" />
               </button>
             </div>
@@ -235,7 +239,7 @@ export default function Hero() {
           onClick={() => scrollToSection("work")}
           className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-[#A3A3A3] hover:text-[#FF5A1F] transition-colors cursor-pointer group"
         >
-          <span>SCROLL TO DISCOVER</span>
+          <span>{t.hero.scrollToDiscover}</span>
           <div className="w-6 h-10 rounded-full border border-white/20 flex items-start justify-center p-1 group-hover:border-[#FF5A1F]">
             <div className="w-1.5 h-2 rounded-full bg-[#FF5A1F] animate-bounce" />
           </div>
@@ -250,19 +254,19 @@ export default function Hero() {
               <div className="flex items-center gap-2">
                 <Film className="w-5 h-5 text-[#FF5A1F]" />
                 <h3 className="font-mono font-bold text-white text-sm">
-                  CUSTOM CANVA HERO VIDEO SETUP
+                  {t.hero.guideTitle}
                 </h3>
               </div>
               <button
                 onClick={() => setShowVideoInfoModal(false)}
                 className="text-[#A3A3A3] hover:text-white text-xs font-mono p-1"
               >
-                CLOSE [✕]
+                {t.hero.guideClose}
               </button>
             </div>
             <div className="text-xs text-[#A3A3A3] space-y-3 leading-relaxed">
               <p>
-                The website is configured to automatically play your Canva cinematic video from:
+                {t.hero.guideText1}
               </p>
               <div className="p-3 bg-[#080808] border border-white/10 rounded-lg font-mono text-[11px] text-white select-all break-all">
                 c:\company\public\videos\tekzo-hero.mp4
@@ -272,17 +276,14 @@ export default function Hero() {
                 <code className="text-[#FF5A1F]">/videos/tekzo-hero.mp4</code>
               </p>
               <p>
-                Currently, the graceful visual fallback (interactive 3D particle constellation &
-                ambient glow) is playing smoothly. Once you drop your exported{" "}
-                <code className="text-white">tekzo-hero.mp4</code> file into that folder, it will
-                instantly stream right here!
+                {t.hero.guideText2}
               </p>
             </div>
             <button
               onClick={() => setShowVideoInfoModal(false)}
               className="mt-6 w-full py-2.5 rounded-xl bg-[#FF5A1F] text-black font-bold text-xs uppercase tracking-wider"
             >
-              GOT IT
+              {t.hero.guideGotIt}
             </button>
           </div>
         </div>

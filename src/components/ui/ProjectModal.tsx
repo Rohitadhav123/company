@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { X, ArrowUpRight, CheckCircle2, Layers, Cpu, BarChart3, AlertCircle } from "lucide-react";
 import { Project } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 
 interface ProjectModalProps {
   project: Project | null;
@@ -11,6 +13,8 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose, onEnquire }: ProjectModalProps) {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -62,7 +66,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-[#A3A3A3] mb-4 max-w-full">
               <AlertCircle className="w-3 h-3 text-[#FF5A1F] shrink-0" />
-              <span className="truncate">CONCEPT SHOWCASE — R&D PROTOTYPE</span>
+              <span className="truncate">{t.work.modalBadge}</span>
             </div>
 
             <h2 className="text-2xl xs:text-3xl sm:text-5xl font-black tracking-tight text-white uppercase mb-3 break-words">
@@ -96,7 +100,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
                 {project.category}
               </h3>
               <p className="text-xs text-[#A3A3A3] font-mono">
-                Concept Visual Direction & Architectural Blueprint
+                {language === "mr" ? "संकल्पना व्हिज्युअल दिशा आणि तांत्रिक ब्लूप्रिंट" : "Concept Visual Direction & Architectural Blueprint"}
               </p>
             </div>
           </div>
@@ -127,7 +131,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
             <div className="p-6 rounded-2xl bg-[#141414] border border-white/5 space-y-3">
               <h4 className="text-sm font-mono uppercase tracking-wider text-white flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-red-400" />
-                The Creative Challenge
+                {t.work.modalChallenge}
               </h4>
               <p className="text-sm text-[#A3A3A3] leading-relaxed">
                 {project.challenge}
@@ -137,7 +141,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
             <div className="p-6 rounded-2xl bg-[#141414] border border-white/5 space-y-3">
               <h4 className="text-sm font-mono uppercase tracking-wider text-white flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                The Engineered Solution
+                {t.work.modalSolution}
               </h4>
               <p className="text-sm text-[#A3A3A3] leading-relaxed">
                 {project.solution}
@@ -149,7 +153,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
           <div>
             <h4 className="text-sm font-mono uppercase tracking-wider text-white mb-4 flex items-center gap-2">
               <Layers className="w-4 h-4 text-[#FF5A1F]" />
-              Project Deliverables & Artifacts
+              {t.work.deliverablesLabel}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {project.deliverables.map((item, idx) => (
@@ -168,7 +172,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
           <div>
             <h4 className="text-sm font-mono uppercase tracking-wider text-white mb-3 flex items-center gap-2">
               <Cpu className="w-4 h-4 text-[#FF5A1F]" />
-              Tooling & Technologies
+              {t.work.techStackLabel}
             </h4>
             <div className="flex flex-wrap gap-2">
               {project.techStack.map((tech, idx) => (
@@ -186,7 +190,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
         {/* Modal Bottom Sticky CTA */}
         <div className="p-4 xs:p-6 border-t border-white/10 bg-[#141414] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-[#A3A3A3] font-mono text-center sm:text-left">
-            Inspired by this concept? Commission custom visuals or web architecture.
+            {language === "mr" ? "या संकल्पनेने प्रभावित झालात? आपल्या ब्रँडसाठी असाच प्रकल्प सुरू करा." : "Inspired by this concept? Commission custom visuals or web architecture."}
           </p>
           <button
             type="button"
@@ -196,7 +200,7 @@ export default function ProjectModal({ project, onClose, onEnquire }: ProjectMod
             }}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-[#FF5A1F] text-black font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-colors shadow-[0_0_20px_rgba(255,90,31,0.4)]"
           >
-            <span>DISCUSS THIS DIRECTION</span>
+            <span>{t.work.modalCta}</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>

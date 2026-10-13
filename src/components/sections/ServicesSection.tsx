@@ -5,7 +5,10 @@ import Image from "next/image";
 import { Sparkles, ArrowUpRight, ShieldCheck, Filter } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SERVICES, ServiceItem } from "@/data/services";
+import { ServiceItem } from "@/data/services";
+import { getLocalizedServices } from "@/data/localizedData";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
 import ServiceCard from "./services/ServiceCard";
 import ServiceDetailModal from "./services/ServiceDetailModal";
 
@@ -16,6 +19,10 @@ interface ServicesSectionProps {
 export default function ServicesSection({
   onSelectServiceForEnquiry,
 }: ServicesSectionProps) {
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
+  const localizedServices = getLocalizedServices(language);
+
   const sectionRef = useRef<HTMLElement>(null);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
 
@@ -107,13 +114,13 @@ export default function ServicesSection({
 
   // Filter options
   const filterOptions = [
-    { label: "All Practices (6)", value: "all" },
-    { label: "AI & Motion", value: "ai" },
-    { label: "Web & Mobile", value: "engineering" },
-    { label: "Strategy & Automation", value: "strategy" },
+    { label: t.services.filterAll, value: "all" },
+    { label: t.services.filterAi, value: "ai" },
+    { label: t.services.filterEngineering, value: "engineering" },
+    { label: t.services.filterStrategy, value: "strategy" },
   ];
 
-  const filteredServices = SERVICES.filter((s) => {
+  const filteredServices = localizedServices.filter((s) => {
     if (activeFilter === "all") return true;
     if (activeFilter === "ai") return s.id === "ai-poster" || s.id === "ai-video";
     if (activeFilter === "engineering") return s.id === "web-development" || s.id === "app-development";
@@ -159,19 +166,17 @@ export default function ServicesSection({
                 />
               </div>
               <span className="text-xs font-mono uppercase tracking-widest text-[#FF5A1F] font-semibold">
-                TEKZO CAPABILITIES & PRACTICES
+                {t.services.sectionTag}
               </span>
             </div>
 
             <h2 className="text-3xl xs:text-4xl sm:text-6xl md:text-7xl font-black uppercase text-white tracking-tight leading-[0.95] break-words">
-              SERVICES BUILT <br />
-              <span className="text-orange-gradient">TO PERFORM.</span>
+              {t.services.headingLine1} <br />
+              <span className="text-orange-gradient">{t.services.headingLine2}</span>
             </h2>
 
             <p className="mt-6 text-[#A3A3A3] text-base sm:text-lg max-w-xl leading-relaxed">
-              We bridge generative AI art direction, high-velocity engineering, and strategic
-              business architecture. Explore our six core practices designed to launch and scale
-              ambitious brands.
+              {t.services.subheading}
             </p>
           </div>
 
@@ -179,11 +184,10 @@ export default function ServicesSection({
           <div className="p-4 xs:p-5 rounded-2xl bg-[#111111] border border-white/10 w-full md:w-auto md:max-w-md shrink-0">
             <div className="flex items-center gap-2 text-xs font-mono text-white mb-1.5 font-bold">
               <ShieldCheck className="w-4 h-4 text-[#FF5A1F]" />
-              <span>INTERACTIVE CAPABILITY LAB</span>
+              <span>{t.services.transparencyTitle}</span>
             </div>
             <p className="text-xs text-[#A3A3A3] leading-relaxed">
-              Every card below contains a live interactive micro-demonstration of our engineering
-              and visual synthesis pipelines. Interact directly with each canvas to test parameters.
+              {t.services.transparencyText}
             </p>
           </div>
         </div>
@@ -192,7 +196,7 @@ export default function ServicesSection({
         <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-14 border-b border-white/10 pb-6">
           <div className="flex items-center gap-1.5 text-xs font-mono text-[#737373] mr-2">
             <Filter className="w-3.5 h-3.5" />
-            <span>DISCIPLINE:</span>
+            <span>{t.services.filterDiscipline}</span>
           </div>
 
           {filterOptions.map((opt) => (
@@ -233,14 +237,13 @@ export default function ServicesSection({
           <div className="relative z-10 max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161616] border border-white/10 text-[10px] font-mono text-[#FF5A1F] uppercase font-bold mb-3">
               <Sparkles className="w-3 h-3 text-[#FF5A1F]" />
-              <span>CROSS-PRACTICE COLLABORATION</span>
+              <span>{t.services.bundleTag}</span>
             </div>
             <h4 className="text-xl xs:text-2xl sm:text-3xl font-black uppercase text-white tracking-tight mb-2">
-              NEED AN INTEGRATED FULL-STACK CAMPAIGN?
+              {t.services.bundleHeading}
             </h4>
             <p className="text-xs sm:text-sm text-[#A3A3A3] leading-relaxed">
-              Most forward-thinking clients bundle our practices—combining AI Key Visuals,
-              a Next.js Web Flagship, and Automated Workflow Telemetry for seamless omnichannel execution.
+              {t.services.bundleDescription}
             </p>
           </div>
 
@@ -248,7 +251,7 @@ export default function ServicesSection({
             href="#contact"
             className="relative z-10 w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 xs:px-8 py-3.5 xs:py-4 rounded-full bg-[#FF5A1F] text-black font-extrabold text-xs uppercase tracking-wider hover:bg-white transition-all shadow-[0_0_25px_rgba(255,90,31,0.5)] shrink-0"
           >
-            <span>COMMISSION CROSS-PRACTICE BRIEF</span>
+            <span>{t.services.bundleCta}</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

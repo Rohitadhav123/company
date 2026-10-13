@@ -2,6 +2,7 @@
 
 import { ArrowUpRight, Sparkles, Layers } from "lucide-react";
 import { Project } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProjectCardProps {
   project: Project;
@@ -9,6 +10,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) {
+  const { language } = useLanguage();
   // Visual artwork generator according to project identity
   const renderVisualArtwork = () => {
     switch (project.id) {
@@ -200,7 +202,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
           </div>
 
           <span className="text-xs font-mono font-bold text-[#FF5A1F] opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1 shrink-0 ml-2">
-            <span>EXPLORE</span>
+            <span>{language === "mr" ? "पहा" : "EXPLORE"}</span>
             <span>→</span>
           </span>
         </div>

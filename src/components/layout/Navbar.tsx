@@ -4,10 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, Menu, X, Sparkles } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import { TRANSLATIONS } from "@/data/translations";
+import LanguageToggle from "@/components/ui/LanguageToggle";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language } = useLanguage();
+  const t = TRANSLATIONS[language];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,11 +48,11 @@ export default function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: "Work", href: "#work" },
-    { name: "Services", href: "#services" },
-    { name: "About", href: "#about" },
-    { name: "Process", href: "#process" },
-    { name: "Contact", href: "#contact" },
+    { name: t.nav.work, href: "#work" },
+    { name: t.nav.services, href: "#services" },
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.process, href: "#process" },
+    { name: t.nav.contact, href: "#contact" },
   ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -115,14 +120,17 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Right Action: Let's Talk CTA & Mobile Trigger */}
-          <div className="flex items-center gap-4">
+          {/* Right Action: Language Switcher, Let's Talk CTA & Mobile Trigger */}
+          <div className="flex items-center gap-2.5 sm:gap-3.5">
+            {/* Prominent Language Switcher Button */}
+            <LanguageToggle variant="navbar" />
+
             <a
               href="#contact"
               onClick={(e) => handleScrollTo(e, "#contact")}
               className="relative group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF5A1F] text-black text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:bg-white hover:shadow-[0_0_20px_rgba(255,90,31,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
             >
-              <span>LET&apos;S TALK</span>
+              <span>{t.nav.startProject}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
@@ -131,7 +139,7 @@ export default function Navbar() {
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="md:hidden w-11 h-11 flex items-center justify-center rounded-full bg-[#151515] border border-white/10 text-white hover:text-[#FF5A1F] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A1F]"
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={isMobileMenuOpen ? t.nav.closeMenu : t.nav.openMenu}
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -166,10 +174,15 @@ export default function Navbar() {
             type="button"
             onClick={() => setIsMobileMenuOpen(false)}
             className="w-11 h-11 flex items-center justify-center rounded-full bg-[#151515] border border-white/15 text-white hover:text-[#FF5A1F] transition-colors"
-            aria-label="Close menu"
+            aria-label={t.nav.closeMenu}
           >
             <X className="w-5 h-5" />
           </button>
+        </div>
+
+        {/* Mobile Language Toggle */}
+        <div className="my-4">
+          <LanguageToggle variant="mobile" />
         </div>
 
         <nav className="flex flex-col gap-6 my-auto" aria-label="Mobile Navigation">
@@ -178,7 +191,7 @@ export default function Navbar() {
               key={link.name}
               href={link.href}
               onClick={(e) => handleScrollTo(e, link.href)}
-              className="text-3xl font-extrabold tracking-tight text-white hover:text-[#FF5A1F] transition-colors flex items-center justify-between group"
+              className="text-2xl xs:text-3xl font-extrabold tracking-tight text-white hover:text-[#FF5A1F] transition-colors flex items-center justify-between group"
             >
               <span>{link.name}</span>
               <span className="text-xs font-mono text-[#A3A3A3] group-hover:text-[#FF5A1F]">
@@ -191,14 +204,14 @@ export default function Navbar() {
         <div className="pt-6 border-t border-white/10 flex flex-col gap-4">
           <div className="flex items-center gap-2 text-xs text-[#A3A3A3] font-mono">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>ACCEPTING NEW COMMISSIONS</span>
+            <span>{t.footer.statusAvailable}</span>
           </div>
           <a
             href="#contact"
             onClick={(e) => handleScrollTo(e, "#contact")}
             className="w-full py-4 rounded-xl bg-[#FF5A1F] text-black font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 text-sm shadow-[0_0_25px_rgba(255,90,31,0.4)]"
           >
-            <span>START A PROJECT</span>
+            <span>{t.nav.startProject}</span>
             <ArrowUpRight className="w-4 h-4" />
           </a>
         </div>

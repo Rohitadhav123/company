@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/layout/CustomCursor";
 import AmbientBackground from "@/components/layout/AmbientBackground";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -90,17 +91,19 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-[#080808] text-[#F5F5F5] selection:bg-[#FF5A1F] selection:text-white relative">
-        {/* Continuous Cinematic Ambient Background System */}
-        <AmbientBackground />
+        <LanguageProvider>
+          {/* Continuous Cinematic Ambient Background System */}
+          <AmbientBackground />
 
-        {/* Subtle noise grain for cinematic polish */}
-        <div className="pointer-events-none fixed inset-0 z-40 grain-overlay opacity-30 mix-blend-screen" />
-        
-        {/* Interactive Magnetic Cursor (Desktop) */}
-        <CustomCursor />
-        
-        {/* Main Content Tree */}
-        <div className="flex-1 flex flex-col w-full relative z-10">{children}</div>
+          {/* Subtle noise grain for cinematic polish */}
+          <div className="pointer-events-none fixed inset-0 z-40 grain-overlay opacity-30 mix-blend-screen" />
+          
+          {/* Interactive Magnetic Cursor (Desktop) */}
+          <CustomCursor />
+          
+          {/* Main Content Tree */}
+          <div className="flex-1 flex flex-col w-full relative z-10">{children}</div>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowUpRight, Sparkles, Check, Info } from "lucide-react";
 import { ServiceItem } from "@/data/services";
+import { useLanguage } from "@/context/LanguageContext";
 import PosterDesignDemo from "./PosterDesignDemo";
 import AnimationVideoDemo from "./AnimationVideoDemo";
 import WebDevelopmentDemo from "./WebDevelopmentDemo";
@@ -43,6 +44,8 @@ export default function ServiceCard({
     }
   };
 
+  const { language } = useLanguage();
+
   return (
     <div
       onMouseEnter={() => setIsHovered(true)}
@@ -73,7 +76,7 @@ export default function ServiceCard({
                 backgroundColor: `${service.accent}15`,
               }}
             >
-              PRACTICE {service.number}
+              {language === "mr" ? `सेवा ${service.number}` : `PRACTICE ${service.number}`}
             </span>
             <span className="text-[10px] sm:text-xs font-mono text-[#A3A3A3] uppercase">
               {service.category}
@@ -108,11 +111,11 @@ export default function ServiceCard({
       </div>
 
       {/* CARD BOTTOM: Capabilities Pills & Action Controls */}
-      <div className="p-4 xs:p-6 sm:p-8 pt-3 sm:pt-4 relative z-10 border-t border-white/10 mt-2 sm:mt-4 flex flex-col justify-between gap-4 sm:gap-6">
+      <div className="p-4 xs:p-6 sm:p-8 pt-3 sm:pb-8 relative z-10 border-t border-white/10 mt-2 sm:mt-4 flex flex-col justify-between gap-4 sm:gap-6">
         {/* Core Capabilities Chips */}
         <div>
           <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-[#737373] block mb-2">
-            DELIVERED CAPABILITIES:
+            {language === "mr" ? "मुख्य वैशिष्ट्ये:" : "DELIVERED CAPABILITIES:"}
           </span>
           <div className="flex flex-wrap gap-1 sm:gap-1.5">
             {service.offerings.slice(0, 3).map((item, idx) => (
@@ -140,7 +143,7 @@ export default function ServiceCard({
             title="View Deliverables & Tech Stack"
           >
             <Info className="w-3.5 h-3.5 text-[#FF5A1F]" />
-            <span>FULL SPECS</span>
+            <span>{language === "mr" ? "तपशील पहा" : "FULL SPECS"}</span>
           </button>
 
           {/* Primary Commission CTA */}
@@ -150,7 +153,7 @@ export default function ServiceCard({
             className="w-full xs:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 sm:py-3 rounded-full font-extrabold text-xs uppercase tracking-wider text-black transition-all duration-300 hover:bg-white shrink-0 shadow-lg"
             style={{ backgroundColor: service.accent }}
           >
-            <span>START BRIEF</span>
+            <span>{language === "mr" ? "चौकशी करा" : "START BRIEF"}</span>
             <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </button>
         </div>
