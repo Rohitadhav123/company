@@ -12,38 +12,42 @@ interface Composition {
   subhead: string;
   prompt: string;
   tag: string;
+  image: string;
 }
 
 const COMPOSITIONS: Composition[] = [
   {
     id: 1,
-    name: "CHRONO-X",
-    theme: "Luxury Kinetic Chronograph",
+    name: "NAVRATRI",
+    theme: "Festival Key Visual & Advertising",
     accent: "#FF5A1F",
-    headline: "BEYOND PRECISION.",
-    subhead: "TITANIUM CASE • CO-AXIAL ESCAPEMENT • 300M",
-    prompt: "/imagine luxury titanium chronograph floating in zero-gravity, vivid orange luminescent dials, cinematic lighting, 8k --v 6.1",
-    tag: "AERO-ENGINEERING",
+    headline: "SUNIL LUNCH HOME",
+    subhead: "NAVRATRI FESTIVAL CAMPAIGN • CHAKAN",
+    prompt: "Festival advertising key visual, Maa Durga blessings, traditional Marathi heritage architecture & fine dining spread",
+    tag: "FESTIVAL CAMPAIGN",
+    image: "/images/posters/navratri-sunil.jpg",
   },
   {
     id: 2,
-    name: "AMBER NOIR",
-    theme: "Haute Parfumerie Flacon",
-    accent: "#E5A93C",
-    headline: "ELIXIR DE NUIT.",
-    subhead: "RARE OUD • SPICED AMBER • SMOKED CEDAR",
-    prompt: "/imagine bespoke frosted glass perfume flacon, radiant amber liquid glow, golden silk smoke tendrils, studio lighting, hyperreal --ar 4:5",
-    tag: "HAUTE LUXURY",
+    name: "VIGHNAHARTA",
+    theme: "Commercial Brand & Distribution Fleet",
+    accent: "#00B4D8",
+    headline: "VIGHNAHARTA WATER",
+    subhead: "PURE WATER PURVEYOR • CHAKAN",
+    prompt: "Commercial product poster, pure mineral water 20L jars, fresh hydration splash & logistics fleet",
+    tag: "COMMERCIAL BRAND",
+    image: "/images/posters/vighnaharta-water.jpg",
   },
   {
     id: 3,
-    name: "CYBER-STRIDE",
-    theme: "Bio-Mechanical Runner",
-    accent: "#00F0FF",
-    headline: "UNBOUND VELOCITY.",
-    subhead: "REACTIVE FOAM • CARBON SPRING CHASSIS • 180G",
-    prompt: "/imagine futuristic aerodynamic sneaker bursting through neon particle soundwave, kinetic diagonal motion, octane render --v 6.1",
-    tag: "KINETIC WEAR",
+    name: "RESTAURANT",
+    theme: "Hospitality Branding & Gourmet Menu",
+    accent: "#E5A93C",
+    headline: "SUNIL LUNCH HOME",
+    subhead: "FAMILY RESTAURANT • VEG & NON-VEG",
+    prompt: "Commercial gourmet restaurant poster, authentic culinary feast, ambient fine dining & promotional menu layout",
+    tag: "GOURMET MENU",
+    image: "/images/posters/sunil-lunch-home.jpg",
   },
 ];
 
@@ -65,7 +69,7 @@ export default function PosterDesignDemo() {
   };
 
   return (
-    <div className="relative w-full h-[380px] sm:h-[420px] rounded-2xl bg-[#090909] border border-white/10 overflow-hidden flex flex-col justify-between p-3 xs:p-4 sm:p-5 select-none group">
+    <div className="relative w-full h-[410px] sm:h-[440px] rounded-2xl bg-[#090909] border border-white/10 overflow-hidden flex flex-col justify-between p-3 xs:p-4 sm:p-5 select-none group">
       {/* Background Matrix Blueprint Grid */}
       <div className="absolute inset-0 bg-grid-pattern opacity-20 pointer-events-none" />
 
@@ -95,9 +99,9 @@ export default function PosterDesignDemo() {
       </div>
 
       {/* The Central Interactive Poster Canvas */}
-      <div className="relative z-10 flex-1 my-3 flex items-center justify-center overflow-hidden">
+      <div className="relative z-10 flex-1 my-2 flex items-center justify-center overflow-hidden">
         <div
-          className={`relative w-full max-w-[280px] sm:max-w-[320px] h-full max-h-[300px] rounded-xl border transition-all duration-500 overflow-hidden flex flex-col justify-between p-5 shadow-2xl ${
+          className={`relative w-full max-w-[280px] sm:max-w-[320px] h-full max-h-[330px] rounded-xl border transition-all duration-500 overflow-hidden flex flex-col justify-between p-4 shadow-2xl ${
             isTransitioning ? "opacity-30 scale-95" : "opacity-100 scale-100"
           } ${
             isRendered
@@ -162,67 +166,34 @@ export default function PosterDesignDemo() {
           </div>
 
           {/* Poster Center: Dynamic Visual Artwork */}
-          <div className="relative z-10 my-auto flex flex-col items-center justify-center py-2">
+          <div className="relative z-10 my-auto flex flex-col items-center justify-center py-1">
             {isRendered ? (
               <div className="relative w-full flex flex-col items-center">
-                {/* 3D Visual Centerpiece Representation */}
+                {/* Visual Centerpiece Artwork - Portrait poster aspect ratio */}
                 <div
-                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-transform duration-500 shadow-xl"
+                  className="w-24 xs:w-28 sm:w-32 aspect-[2/3] rounded-xl border flex items-center justify-center relative overflow-hidden group-hover:scale-105 transition-all duration-500 shadow-2xl bg-black"
                   style={{
-                    background: `radial-gradient(circle at 35% 30%, ${activeComp.accent}30, #080808 80%)`,
-                    borderColor: `${activeComp.accent}50`,
+                    borderColor: `${activeComp.accent}60`,
+                    boxShadow: `0 0 25px ${activeComp.accent}30`,
                   }}
                 >
-                  {/* Dynamic Silhouette by composition */}
-                  {activeCompIndex === 0 && (
-                    <div className="relative flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full border-2 border-white/80 flex items-center justify-center shadow-lg">
-                        <div
-                          className="w-12 h-12 rounded-full border border-dashed animate-spin"
-                          style={{
-                            borderColor: activeComp.accent,
-                            animationDuration: "16s",
-                          }}
-                        />
-                        <div
-                          className="absolute w-6 h-0.5 bg-[#FF5A1F] rounded origin-left -rotate-45"
-                          style={{ left: "50%" }}
-                        />
-                        <div
-                          className="absolute w-4 h-0.5 bg-white rounded origin-left rotate-45"
-                          style={{ left: "50%" }}
-                        />
-                      </div>
-                    </div>
-                  )}
+                  <img
+                    src={activeComp.image}
+                    alt={activeComp.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+                    loading="eager"
+                  />
 
-                  {activeCompIndex === 1 && (
-                    <div className="relative flex flex-col items-center justify-center">
-                      <div className="w-8 h-3 rounded-t-sm bg-amber-200/60 border border-white/40 mb-0.5" />
-                      <div className="w-14 h-16 rounded-xl bg-gradient-to-b from-amber-500/40 via-amber-700/30 to-black border border-amber-300/50 flex items-center justify-center shadow-lg">
-                        <span className="text-[7px] font-serif tracking-widest text-amber-200 uppercase">
-                          TEKZO
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {activeCompIndex === 2 && (
-                    <div className="relative flex items-center justify-center">
-                      <div className="w-16 h-8 rounded-full border border-cyan-400/60 bg-gradient-to-r from-cyan-500/30 to-transparent -rotate-12 flex items-center justify-between px-2">
-                        <div className="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_10px_#00F0FF]" />
-                        <div className="w-6 h-1 bg-white/60 rounded" />
-                      </div>
-                    </div>
-                  )}
+                  {/* Gradient Vignette Border */}
+                  <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-xl pointer-events-none" />
 
                   {/* High-Gloss Sheen Sweep Effect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
                 </div>
 
                 {/* Floating prompt chip */}
-                <div className="mt-2 text-[8px] font-mono text-[#A3A3A3] text-center max-w-[200px] truncate px-2 py-0.5 rounded bg-black/60 border border-white/10">
-                  {activeComp.name} • 8K Master
+                <div className="mt-1.5 text-[8px] font-mono text-[#A3A3A3] text-center max-w-[220px] truncate px-2.5 py-0.5 rounded-full bg-black/75 border border-white/10 backdrop-blur-sm">
+                  {activeComp.name} • Tekzo Original Work
                 </div>
               </div>
             ) : (
@@ -267,7 +238,7 @@ export default function PosterDesignDemo() {
                   : "bg-[#141414] text-[#A3A3A3] hover:text-white hover:bg-[#1a1a1a] border border-white/5"
               }`}
             >
-              {c.name.split("-")[0]}
+              {c.name}
             </button>
           ))}
         </div>
